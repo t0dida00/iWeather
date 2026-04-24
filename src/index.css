@@ -1,0 +1,57 @@
+:root {
+  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: #172026;
+  background: #f7faf9;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.app-shell {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.weather-card {
+  width: min(100%, 360px);
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid #dce7e4;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(23, 32, 38, 0.08);
+}
+
+.weather-card h1,
+.weather-card p {
+  margin: 0;
+}
+
+.weather-card h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.weather-card strong {
+  font-size: 28px;
+}
+
+.weather-card small {
+  color: #607078;
+}
