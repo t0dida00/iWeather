@@ -1,0 +1,35 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/variables" as *;
+.headerContainer {
+  width: 100%;
+  border:1px solid $colorSecondary;
+}
+.headerWrapper {
+   @include flexCenterBetween;
+  padding: 13px 0px;
+}
+.greeting{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  p:first-child{
+    font-size: $fontSmall;
+    color: $colorSecondary;
+    font-weight: $fontWeight400;
+  }
+  p:last-child{
+      font-size: $fontMedium;
+    color: $colorPrimary;
+    font-weight: $fontWeight700;
+  }
+}
+// .header__container {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 20px;
+// }
+
+// .header__container p {
+//   margin: 0;
+// }
