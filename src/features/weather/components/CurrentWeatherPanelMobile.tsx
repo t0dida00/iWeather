@@ -1,4 +1,3 @@
-import Card from '../../../shared/ui/Card'
 import TemperatureToggle from '../../preferences/components/TemperatureToggle';
 import styles from "./CurrentWeatherPanelMobile.module.scss"
 import { CloudSun } from 'lucide-react';

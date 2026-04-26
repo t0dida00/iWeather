@@ -1,31 +1,28 @@
-import { Cloud, CloudSun, Sun } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
+import CityCard from '../../../shared/ui/CityCard'
 import styles from './OtherCities.module.scss'
 
 const cities = [
   {
-    country: 'Australia',
-    name: 'Canberra',
-    description: 'Clear Sky',
-    temperature: '13°',
-    range: '12°',
-    icon: Sun
+    countryName: 'Australia',
+    cityName: 'Canberra',
+    condition: 'Clear Sky',
+    tempHigh: '13°',
+    tempLow: '12°'
   },
   {
-    country: 'Japan',
-    name: 'Tokyo',
-    description: 'Partly Cloudy',
-    temperature: '18°',
-    range: '18°',
-    icon: CloudSun
+    countryName: 'Japan',
+    cityName: 'Tokyo',
+    condition: 'Partly Cloudy',
+    tempHigh: '18°',
+    tempLow: '18°'
   },
   {
-    country: 'USA',
-    name: 'New York',
-    description: 'Overcast',
-    temperature: '6°',
-    range: '3°',
-    icon: Cloud
+    countryName: 'USA',
+    cityName: 'New York',
+    condition: 'Overcast',
+    tempHigh: '6°',
+    tempLow: '3°'
   }
 ]
 
@@ -38,35 +35,16 @@ export function OtherCities() {
         </div>
 
         <div className={styles.cityList}>
-          {cities.map((city) => {
-            const Icon = city.icon
-
-            return (
-              <Card
-                background="var(--card-inner-background)"
-                borderColor="var(--card-inner-border)"
-                borderRadius={8}
-                className={styles.cityCard}
-                height="auto"
-                key={city.name}
-                padding="12px"
-                width="auto"
-              >
-                <div>
-                  <p className={styles.country}>{city.country}</p>
-                  <h3>{city.name}</h3>
-                  <p className={styles.description}>{city.description}</p>
-                </div>
-
-                <Icon className={styles.cityIcon} size={34} />
-
-                <p className={styles.temperature}>
-                  {city.temperature}
-                  <span>/{city.range}</span>
-                </p>
-              </Card>
-            )
-          })}
+          {cities.map((city) => (
+            <CityCard
+              condition={city.condition}
+              countryName={city.countryName}
+              cityName={city.cityName}
+              key={city.cityName}
+              tempHigh={city.tempHigh}
+              tempLow={city.tempLow}
+            />
+          ))}
         </div>
       </section>
     </Card>

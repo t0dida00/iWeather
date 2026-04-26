@@ -1,0 +1,51 @@
+@use "../../../app/styles/variables" as *;
+
+.cityCard {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  cursor: pointer;
+
+  p,
+  h3 {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  h3 {
+    margin: 6px 0;
+    color: $colorPrimary;
+    font-size: $fontBase;
+    font-weight: $fontWeight700;
+  }
+}
+
+.country {
+  color: $colorMuted;
+  font-size: $fontXs;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.condition {
+  color: $colorSecondary;
+  font-size: $fontSm;
+}
+
+.cityIcon {
+  color: $colorPrimary;
+}
+
+.temperature {
+  color: $colorPrimary;
+  font-size: $fontBase;
+  font-weight: $fontWeight700;
+
+  span {
+    color: $colorSecondary;
+    font-size: $fontSm;
+    font-weight: $fontWeight400;
+  }
+}
