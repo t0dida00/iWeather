@@ -30,7 +30,7 @@ export default function Card({
     children
 }: CardProps) {
     const cardClassName = className
-        ? `${className}`
+        ? `${styles.card} ${className}`
         : styles.card;
 
     const cardStyle: CSSProperties = {

@@ -1,0 +1,102 @@
+@use "../../../app/styles/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: $fontWeight700;
+    color: $colorPrimary;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metricCard,
+.sunCard {
+  min-height: 98px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  background: #f8f8f8;
+}
+
+.metricCard {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  padding: 14px;
+}
+
+.activeMetric {
+  border-color: #12d89c;
+}
+
+.metricLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #a1a1aa;
+  font-size: 11px;
+  font-weight: $fontWeight700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.metricValue {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 8px 0 4px;
+  color: $colorPrimary;
+  font-size: 32px;
+  line-height: 1;
+
+  span {
+    font-size: 13px;
+    color: $colorSecondary;
+  }
+}
+
+.metricNote {
+  margin: 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.sunCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  span {
+    color: #8f8f8f;
+    font-size: 11px;
+    font-weight: $fontWeight700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
