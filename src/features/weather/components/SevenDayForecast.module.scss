@@ -42,9 +42,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid $colorBorder;
+  border: 1px solid var(--card-inner-border);
   border-radius: 10px;
-  background: $colorSurface;
+  background: var(--card-inner-background);
   color: $colorPrimary;
   transition: 0.2s border-color, 0.2s background-color, 0.2s transform;
   cursor: pointer;
@@ -74,9 +74,9 @@
 }
 
 .activeDay {
-  border-color: #d0d0d0;
-  background: linear-gradient(180deg, #eeeeee 0%, #e5e5e5 100%);
-  box-shadow: inset 0 1px 0 #ffffff;
+  border-color: var(--card-active-border);
+  background: var(--card-active-background);
+  box-shadow: var(--card-active-shadow);
 }
 
 @media (max-width: 760px) {

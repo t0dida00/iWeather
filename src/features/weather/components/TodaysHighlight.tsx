@@ -11,13 +11,13 @@ import styles from './TodaysHighlight.module.scss'
 
 export function TodaysHighlight() {
   return (
-    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={12}>
+    <Card height="auto" width="100%" padding={12}>
       <section className={styles.container}>
         <h2>Today&apos;s Highlight</h2>
         <div className={styles.grid}>
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.metricCard}
             height="auto"
@@ -36,8 +36,8 @@ export function TodaysHighlight() {
           </Card>
 
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.metricCard}
             height="auto"
@@ -56,8 +56,8 @@ export function TodaysHighlight() {
           </Card>
 
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.sunCard}
             height="auto"
@@ -70,8 +70,8 @@ export function TodaysHighlight() {
           </Card>
 
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.metricCard}
             height="auto"
@@ -90,8 +90,8 @@ export function TodaysHighlight() {
           </Card>
 
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.metricCard}
             height="auto"
@@ -110,8 +110,8 @@ export function TodaysHighlight() {
           </Card>
 
           <Card
-            background="#f8f8f8"
-            borderColor="#e4e4e4"
+            background="var(--card-inner-background)"
+            borderColor="var(--card-inner-border)"
             borderRadius={10}
             className={styles.sunCard}
             height="auto"

@@ -17,7 +17,7 @@ $fontWeight600 : 600;
 $fontWeight700 : 700;
 
 // ── Color tokens ─────────────────────────────────────────────────────────────
-$colorPrimary   : #111827;   // headings, strong values
+$colorPrimary   : var(--color-primary);   // headings, strong values
 $colorBody      : #374151;   // body text
 $colorSecondary : #6b7280;   // secondary / muted text
 $colorMuted     : #9ca3af;   // labels, placeholders

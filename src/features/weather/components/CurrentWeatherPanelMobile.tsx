@@ -1,12 +1,12 @@
 import Card from '../../../shared/ui/Card'
 import TemperatureToggle from '../../preferences/components/TemperatureToggle';
 import styles from "./CurrentWeatherPanelMobile.module.scss"
-import { CloudSun, MapPin } from 'lucide-react';
+import { CloudSun } from 'lucide-react';
 
 export function CurrentWeatherPanelMobile() {
 
     return (
-        <Card borderColor={"#FFF"} height={"auto"} width={"100%"} >
+        <Card height={"auto"} width={"100%"} >
             <div className={styles.container}>
                 {/* <div className={styles.location}>
                     <MapPin size={16} />

@@ -5,7 +5,7 @@ import { CloudSun, MapPin } from 'lucide-react';
 export function CurrentWeatherPanel() {
 
   return (
-    <Card borderColor={"#e4e4e4"} height={"auto"} width={"100%"} >
+    <Card height={"auto"} width={"100%"} >
       <div className={styles.container}>
         <div className={styles.location}>
           <MapPin size={16} />

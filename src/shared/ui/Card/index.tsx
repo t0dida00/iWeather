@@ -19,13 +19,13 @@ const toCssValue = (value: SizeValue) =>
     typeof value === "number" ? `${value}px` : value;
 
 export default function Card({
-    background = "#fff",
+    background,
     borderRadius = "16px",
     padding = 12,
     className = "",
     width = 150,
     height = 150,
-    borderColor = "#000",
+    borderColor,
     borderWidth = 1,
     children
 }: CardProps) {
@@ -34,12 +34,13 @@ export default function Card({
         : styles.card;
 
     const cardStyle: CSSProperties = {
-        background,
         borderRadius: toCssValue(borderRadius),
         padding: toCssValue(padding),
         width: toCssValue(width),
         height: toCssValue(height),
-        border: `${toCssValue(borderWidth)} solid ${borderColor}`
+        borderWidth: toCssValue(borderWidth),
+        ...(background ? { background } : {}),
+        ...(borderColor ? { borderColor: toCssValue(borderColor) } : {})
     };
 
     return (

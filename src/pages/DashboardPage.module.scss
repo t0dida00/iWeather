@@ -1,6 +1,8 @@
 @use "../app/styles/mixins" as *;
 @use "../app/styles/variables" as *;
 .container {
+  color: var(--app-color);
+  background: var(--app-background);
   padding:12px;
   @include respond(tablet)
   {
@@ -23,13 +25,23 @@
 }
 
 .sidebar {
-  &>div:nth-child(2) {
-    display: none ;
+  > div:nth-child(1),
+  > div:nth-child(2) {
+    display: none;
   }
-  @include respond(tablet)
-  {
-    &>div:nth-child(2) {
+
+  > div:nth-child(3) {
+    display: block;
+  }
+
+  @include respond(tablet) {
+    > div:nth-child(1),
+    > div:nth-child(2) {
       display: block;
+    }
+
+    > div:nth-child(3) {
+      display: none;
     }
   }
 }

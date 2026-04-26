@@ -55,95 +55,116 @@ export function TwentyFourHourForecast() {
     const chart = echarts.init(chartRef.current)
     const currentForecast = forecastData[activeTab]
 
-    chart.setOption({
-      animation: false,
-      grid: {
-        left: 20,
-        right: 20,
-        top: 10,
-        bottom: 24
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: forecastTimes,
-        axisLine: {
+    const setChartOptions = () => {
+      const rootStyles = getComputedStyle(document.documentElement)
+      const primaryColor = rootStyles.getPropertyValue('--color-primary').trim() || '#111827'
+      const cardBackground = rootStyles.getPropertyValue('--card-background').trim() || '#ffffff'
+      const cardBorder = rootStyles.getPropertyValue('--card-border').trim() || '#e4e4e4'
+
+      chart.setOption({
+        animation: false,
+        grid: {
+          left: 20,
+          right: 20,
+          top: 10,
+          bottom: 24
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: forecastTimes,
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          }
+        },
+        yAxis: {
+          type: 'value',
+          min: currentForecast.min,
+          max: currentForecast.max,
           show: false
         },
-        axisTick: {
-          show: false
-        },
-        axisLabel: {
-          show: false
-        }
-      },
-      yAxis: {
-        type: 'value',
-        min: currentForecast.min,
-        max: currentForecast.max,
-        show: false
-      },
-      series: [
-        {
-          type: 'line',
-          data: currentForecast.values,
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 6,
-          lineStyle: {
-            color: currentForecast.color,
-            width: 2
+        series: [
+          {
+            type: 'line',
+            data: currentForecast.values,
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 6,
+            lineStyle: {
+              color: currentForecast.color,
+              width: 2
+            },
+            itemStyle: {
+              color: currentForecast.color,
+              borderColor: currentForecast.color,
+              borderWidth: 1
+            },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: currentForecast.areaStart
+                },
+                {
+                  offset: 1,
+                  color: currentForecast.areaEnd
+                }
+              ])
+            },
+            label: {
+              show: true,
+              position: 'top',
+              formatter: `{c}${currentForecast.unit}`,
+              color: activeTab === 'rain' ? currentForecast.color : primaryColor,
+              fontSize: 11,
+              fontWeight: 700,
+              distance: 8
+            }
+          }
+        ],
+        tooltip: {
+          show: true,
+          position: 'top',
+          backgroundColor: cardBackground,
+          borderColor: cardBorder,
+          textStyle: {
+            color: primaryColor
           },
-          itemStyle: {
-            color: currentForecast.color,
-            borderColor: currentForecast.color,
-            borderWidth: 1
-          },
-          areaStyle: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: currentForecast.areaStart
-              },
-              {
-                offset: 1,
-                color: currentForecast.areaEnd
-              }
-            ])
-          },
-          label: {
-            show: true,
-            position: 'top',
-            formatter: `{c}${currentForecast.unit}`,
-            color: activeTab === 'rain' ? currentForecast.color : '#000000',
-            fontSize: 11,
-            fontWeight: 700,
-            distance: 8
+          formatter: (params: TooltipParam | TooltipParam[]) => {
+            const point = Array.isArray(params) ? params[0] : params
+
+            return `${point.name}: ${point.value}${currentForecast.unit}`
           }
         }
-      ],
-      tooltip: {
-        show: true,
-        position: 'top',
-        formatter: (params: TooltipParam | TooltipParam[]) => {
-          const point = Array.isArray(params) ? params[0] : params
+      })
+    }
 
-          return `${point.name}: ${point.value}${currentForecast.unit}`
-        }
-      }
-    })
+    setChartOptions()
 
     const resizeChart = () => chart.resize()
+    const themeObserver = new MutationObserver(setChartOptions)
+
     window.addEventListener('resize', resizeChart)
+    themeObserver.observe(document.documentElement, {
+      attributeFilter: ['data-theme'],
+      attributes: true
+    })
 
     return () => {
       window.removeEventListener('resize', resizeChart)
+      themeObserver.disconnect()
       chart.dispose()
     }
   }, [activeTab])
 
   return (
-    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={12}>
+    <Card height="auto" width="100%" padding={12}>
       <section className={styles.container}>
         <h2>24 Hours Forecast</h2>
         <div className={styles.tabs}>

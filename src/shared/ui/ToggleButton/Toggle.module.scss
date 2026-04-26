@@ -3,7 +3,7 @@
 .toggle {
   display: flex;
   border-radius: 999px;
-  background: #e5e7eb;
+  background: var(--toggle-background);
 }
 
 .button {
@@ -14,7 +14,11 @@
   cursor: pointer;
   font: inherit;
   font-size: $fontSm;
-  color: $colorSecondary;
+  color: var(--toggle-color);
+
+  svg {
+    display: block;
+  }
 }
 
 .active {
@@ -22,12 +26,16 @@
   padding: 8px 14px;
   border-radius: 0 999px 999px 0;
   cursor: pointer;
-  background: $colorPrimary;
-  color: #ffffff;
+  background: var(--toggle-active-background);
+  color: var(--toggle-active-color);
   font: inherit;
   font-size: $fontSm;
   font-weight: $fontWeight600;
   transition: 0.2s background-color, 0.2s color;
+
+  svg {
+    display: block;
+  }
 
   &:nth-child(1),
   &:first-child {

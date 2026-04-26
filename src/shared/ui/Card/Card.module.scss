@@ -1,3 +1,6 @@
 .card {
     box-sizing: border-box;
+    border-style: solid;
+    border-color: var(--card-border);
+    background: var(--card-background);
 }
