@@ -4,7 +4,7 @@ import styles from './SevenDayForecast.module.scss'
 
 export function SevenDayForecast() {
   return (
-    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={18}>
+    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={0}>
       <section className={styles.container}>
         <div className={styles.header}>
           <h2>7-Day Forecast</h2>

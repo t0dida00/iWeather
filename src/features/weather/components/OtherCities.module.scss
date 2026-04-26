@@ -61,10 +61,11 @@
   p,
   h3 {
     margin: 0;
+    white-space: nowrap;
   }
 
   h3 {
-    margin-top: 3px;
+    margin: 6px 0;
     font-size: 14px;
     font-weight: $fontWeight700;
   }

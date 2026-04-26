@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-
+  padding: 12px 12px 0 12px;
   h2 {
     margin: 0;
     color: $colorPrimary;
@@ -26,15 +26,18 @@
 }
 
 .dayList {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  display: flex;
+flex-direction: row;
   gap: 10px;
+  overflow-x: auto;
+   padding: 0 12px 12px 12px;
 }
 
 .dayCard {
   display: flex;
   min-height: 128px;
   flex-direction: column;
+  min-width: 96px;
   align-items: center;
   justify-content: center;
   gap: 10px;

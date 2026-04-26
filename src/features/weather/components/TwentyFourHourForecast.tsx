@@ -143,7 +143,7 @@ export function TwentyFourHourForecast() {
   }, [activeTab])
 
   return (
-    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={18}>
+    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={12}>
       <section className={styles.container}>
         <h2>24 Hours Forecast</h2>
         <div className={styles.tabs}>
