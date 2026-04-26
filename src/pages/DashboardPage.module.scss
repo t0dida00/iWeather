@@ -25,24 +25,20 @@
 }
 
 .sidebar {
-  > div:nth-child(1),
+ 
   > div:nth-child(2) {
     display: none;
   }
 
-  > div:nth-child(3) {
-    display: block;
-  }
+ 
 
   @include respond(tablet) {
-    > div:nth-child(1),
+  
     > div:nth-child(2) {
       display: block;
     }
 
-    > div:nth-child(3) {
-      display: none;
-    }
+   
   }
 }
 .mainContent {

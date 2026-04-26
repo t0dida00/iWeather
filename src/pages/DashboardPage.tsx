@@ -15,7 +15,6 @@ export function DashboardPage() {
             <section className={styles.sidebar}>
                 <CurrentWeatherPanel />
                 <OtherCities />
-                <CurrentWeatherPanelMobile />
             </section>
             <section className={styles.mainContent}>
                 <TodaysHighlight />

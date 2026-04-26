@@ -1,6 +1,6 @@
 import TemperatureToggle from '../../preferences/components/TemperatureToggle';
 import styles from "./CurrentWeatherPanelMobile.module.scss"
-import { CloudSun } from 'lucide-react';
+import { CloudSun, MapPin } from 'lucide-react';
 
 export function CurrentWeatherPanelMobile() {
 
@@ -16,6 +16,10 @@ export function CurrentWeatherPanelMobile() {
                     <p>Apr 26, 2026</p>
                 </div> */}
             <div className={styles.weatherInfoContainer}>
+                <div className={styles.location}>
+                    <MapPin size={16} />
+                    <p>Oulu, FI</p>
+                </div>
                 <CloudSun size={80} />
                 <div className={styles.weatherInfo}>
                     <p className={styles.temperature}><span className={styles.temperatureValue}>15</span> <span className={styles.tempUnit}>°C</span></p>
