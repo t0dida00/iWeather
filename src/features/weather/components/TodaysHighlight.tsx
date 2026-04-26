@@ -8,8 +8,10 @@ import {
 } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
 import styles from './TodaysHighlight.module.scss'
+import type { TodayWeatherData } from '../types'
+import { convertMeterToKilometer, convertStringToTime } from '../../../shared/utils/common'
 
-export function TodaysHighlight() {
+export function TodaysHighlight({ data }: { data: TodayWeatherData }) {
   return (
     <Card height="auto" width="100%" padding={12}>
       <section className={styles.container}>
@@ -29,8 +31,8 @@ export function TodaysHighlight() {
               <span>Wind Status</span>
             </div>
             <p className={styles.metricValue}>
-              25.90
-              <span>km/h</span>
+              {data.windSpeed}
+              <span>{data.windSpeedUnit}</span>
             </p>
             <p className={styles.metricNote}>NW - 323°</p>
           </Card>
@@ -49,7 +51,7 @@ export function TodaysHighlight() {
               <span>Humidity</span>
             </div>
             <p className={styles.metricValue}>
-              60
+              {data.humidity}
               <span>%</span>
             </p>
             <p className={styles.metricNote}>Humid</p>
@@ -66,7 +68,7 @@ export function TodaysHighlight() {
           >
             <Sunrise size={36} />
             <span>Sunrise</span>
-            <strong>5:01 AM</strong>
+            <strong>{convertStringToTime(data.sunrise)}</strong>
           </Card>
 
           <Card
@@ -83,7 +85,7 @@ export function TodaysHighlight() {
               <span>UV Index</span>
             </div>
             <p className={styles.metricValue}>
-              4
+              {data.uvIndex}
               <span>UV</span>
             </p>
             <p className={styles.metricNote}>Moderate UV</p>
@@ -103,8 +105,8 @@ export function TodaysHighlight() {
               <span>Visibility</span>
             </div>
             <p className={styles.metricValue}>
-              47
-              <span>km</span>
+              {convertMeterToKilometer(data.visibility)}
+              <span>KM</span>
             </p>
             <p className={styles.metricNote}>Clear</p>
           </Card>
@@ -120,7 +122,7 @@ export function TodaysHighlight() {
           >
             <Sunset size={36} />
             <span>Sunset</span>
-            <strong>9:30 PM</strong>
+            <strong>{convertStringToTime(data.sunset)}</strong>
           </Card>
         </div>
       </section>

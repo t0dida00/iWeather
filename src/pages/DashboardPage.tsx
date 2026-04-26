@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { CurrentWeatherPanel, OtherCities, SevenDayForecast, TwentyFourHourForecast, TodaysHighlight } from "../features/weather";
-import { useCurrentWeather } from "../features/weather/hooks/useCurrentWeather";
+import { useWeatherData } from "../features/weather/hooks/useWeatherData";
 import Card from "../shared/ui/Card";
 import styles from "./DashboardPage.module.scss"
+import { roundNumber } from "../shared/utils/roundNumber";
 
 export function DashboardPage() {
-    const { isError, isPending } = useCurrentWeather()
+    const { isError, isPending, error, data, todayWeatherData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
+    console.log({ isError, error, data, todayWeatherData })
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
@@ -35,12 +37,14 @@ export function DashboardPage() {
             window.removeEventListener("resize", handleScroll)
         }
     }, [])
-
     if (isPending) {
-        return <p>Loading weather...</p>
+        return <p style={{ textAlign: "center" }}>Loading weather...</p>
     }
     if (isError) {
         return <p>Error loading weather data.</p>
+    }
+    if (!todayWeatherData) {
+        return <p>No weather data available.</p>
     }
     return (
         <>
@@ -58,17 +62,17 @@ export function DashboardPage() {
             <div className={styles.container}>
                 <section className={styles.sidebar}>
                     <div ref={currentWeatherRef}>
-                        <CurrentWeatherPanel />
+                        {<CurrentWeatherPanel data={todayWeatherData} />}
                     </div>
                     {showCompactSummary && (
                         <Card className={styles.mobileSummaryCard} height="auto" width="100%" padding={12}>
                             <div className={styles.sidebarSummary}>
                                 <div className={styles.summaryRow}>
-                                    <strong>15°C</strong>
+                                    <strong>{roundNumber(todayWeatherData?.temperature)}°C</strong>
                                     <span>Oulu, FI</span>
                                 </div>
                                 <div className={styles.summaryRow}>
-                                    <span>Feels like 13°C</span>
+                                    <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}°C</span>
                                     <span>Sunday</span>
                                 </div>
                             </div>
@@ -79,7 +83,7 @@ export function DashboardPage() {
                     </div>
                 </section>
                 <section className={styles.mainContent}>
-                    <TodaysHighlight />
+                    <TodaysHighlight data={todayWeatherData} />
                     <TwentyFourHourForecast />
                     <SevenDayForecast />
                     <OtherCities />
