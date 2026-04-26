@@ -1,1 +1,1 @@
-export { WeatherOverview } from './components/WeatherOverview'
+export { CurrentWeatherPanel } from './components/CurrentWeatherPanel'

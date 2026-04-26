@@ -1,0 +1,29 @@
+@use "../../../app/styles/variables" as *;
+@use "../../../app/styles/mixins" as *;
+.container{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+}
+
+.location{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap:2px;
+}
+.date{
+
+}
+.weatherInfoContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    .weatherInfo{
+        display: flex;
+        flex-direction: column;
+        gap:4px;
+        align-items: flex-end;
+    }
+}

@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
-import { WeatherOverview } from '../../features/weather'
 import { NotFound } from '../../pages/NotFound'
 import { RootLayout } from '../layouts/RootLayout'
+import { DashboardPage } from '../../pages/DashboardPage'
 
 export const routers = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ export const routers = createBrowserRouter([
       },
       {
         path: 'overview',
-        element: <WeatherOverview />,
+        element: <DashboardPage />,
       },
       {
         path: '*',
