@@ -1,0 +1,62 @@
+@use "../app/styles/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 12px;
+  color: var(--app-color);
+  background: var(--app-background);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  h1,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    color: $colorPrimary;
+    font-size: $fontXl;
+    font-weight: $fontWeight700;
+  }
+
+  p {
+    color: $colorSecondary;
+    font-size: $fontSm;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

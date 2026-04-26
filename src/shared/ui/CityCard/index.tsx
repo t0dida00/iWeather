@@ -1,4 +1,5 @@
 import { Cloud, CloudSun, Sun } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Card from '../Card'
 import styles from './CityCard.module.scss'
 
@@ -32,29 +33,32 @@ export default function CityCard({
   tempLow
 }: CityCardProps) {
   const Icon = getWeatherIcon(condition)
+  const cityQuery = encodeURIComponent(cityName.toLowerCase())
 
   return (
-    <Card
-      background="var(--card-inner-background)"
-      borderColor="var(--card-inner-border)"
-      borderRadius={8}
-      className={styles.cityCard}
-      height="auto"
-      padding="12px"
-      width="100%"
-    >
-      <div>
-        <p className={styles.country}>{countryName}</p>
-        <h3>{cityName}</h3>
-        <p className={styles.condition}>{condition}</p>
-      </div>
+    <Link className={styles.cityLink} to={`/overview/?city=${cityQuery}`}>
+      <Card
+        background="var(--card-inner-background)"
+        borderColor="var(--card-inner-border)"
+        borderRadius={8}
+        className={styles.cityCard}
+        height="auto"
+        padding="12px"
+        width="100%"
+      >
+        <div>
+          <p className={styles.country}>{countryName}</p>
+          <h3>{cityName}</h3>
+          <p className={styles.condition}>{condition}</p>
+        </div>
 
-      <Icon className={styles.cityIcon} size={34} />
+        <Icon className={styles.cityIcon} size={34} />
 
-      <p className={styles.temperature}>
-        {tempHigh}
-        <span>/{tempLow}</span>
-      </p>
-    </Card>
+        <p className={styles.temperature}>
+          {tempHigh}
+          <span>/{tempLow}</span>
+        </p>
+      </Card>
+    </Link>
   )
 }

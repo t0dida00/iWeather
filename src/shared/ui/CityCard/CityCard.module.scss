@@ -1,5 +1,11 @@
 @use "../../../app/styles/variables" as *;
 
+.cityLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
 .cityCard {
   display: grid;
   grid-template-columns: 1fr auto auto;

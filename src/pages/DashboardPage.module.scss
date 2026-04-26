@@ -1,5 +1,30 @@
 @use "../app/styles/mixins" as *;
 @use "../app/styles/variables" as *;
+
+.pageActions {
+  display: flex;
+  padding: 0 12px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--card-background);
+  color: $colorPrimary;
+  cursor: pointer;
+
+  // &:hover {
+  //   border-color: $colorAccent;
+  //   background: var(--card-inner-background);
+  //   transform: translateX(-2px);
+  // }
+}
+
 .container {
   color: var(--app-color);
   background: var(--app-background);
@@ -10,7 +35,7 @@
   grid-template-columns: 350px minmax(0, 1fr);
   gap: 18px;
   align-items: start;
-  padding: 18px 12px;
+  padding:  12px;
   }
 
 
