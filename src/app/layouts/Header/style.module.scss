@@ -33,3 +33,8 @@
 // .header__container p {
 //   margin: 0;
 // }
+.toggleButtons{
+  display: flex;
+  gap: 12px;
+  flex-direction: row;
+}

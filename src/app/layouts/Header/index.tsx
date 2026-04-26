@@ -1,3 +1,5 @@
+import TemperatureToggle from '../../../features/preferences/components/TemperatureToggle'
+import ThemeToggle from '../../../features/preferences/components/ThemeToggle'
 import { LocationSearch } from '../../../features/search'
 import styles from './style.module.scss'
 
@@ -9,11 +11,10 @@ export function Header() {
           <p>Hi, Corsearch</p>
           <p>Good Morning</p>
         </div>
-
         <LocationSearch />
-
         <div className={styles.toggleButtons}>
-          <p>Hi, Corsearch!</p>
+          <ThemeToggle />
+          <TemperatureToggle />
         </div>
       </div>
     </header>

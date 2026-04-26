@@ -1,0 +1,32 @@
+.toggle{
+ display:flex;
+//  padding:4px;
+ border-radius:999px;
+ background:#e5e7eb;
+//  gap:4px;
+}
+
+.button{
+ border:none;
+ background:transparent;
+ padding:8px 14px;
+ border-radius:999px;
+ cursor:pointer;
+}
+
+.active{
+ border:none;
+ padding:8px 14px;
+ border-radius:0 999px 999px 0;
+ cursor:pointer;
+ background:#111827;
+ color:white;
+ transition: 0.3s background-color, 0.3s color;
+ &:nth-child(1){
+  border-radius:999px 0 0 999px;
+ }
+&:first-child{
+  border-radius:999px 0 0 999px;
+
+}
+}
