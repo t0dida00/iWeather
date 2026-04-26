@@ -1,3 +1,4 @@
+import Button from "../Button";
 import styles from "./Toggle.module.scss";
 
 type ToggleOption = {
@@ -21,18 +22,21 @@ export default function Toggle({
     return (
         <div className={styles.toggle}>
             {options.map(option => (
-                <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => onChange(option.value)}
-                    className={
-                        value === option.value
-                            ? styles.active
-                            : styles.button
-                    }
-                >
+                // <button
+                //     key={option.value}
+                //     type="button"
+                //     onClick={() => onChange(option.value)}
+                //     className={
+                //         value === option.value
+                //             ? styles.active
+                //             : styles.button
+                //     }
+                // >
+                //     {option.imgSrc ? <img src={option.imgSrc} alt={option.label} /> : option.label}
+                // </button>
+                <Button key={option.value} onClick={() => onChange(option.value)} className={value === option.value ? styles.active : styles.button}>
                     {option.imgSrc ? <img src={option.imgSrc} alt={option.label} /> : option.label}
-                </button>
+                </Button>
             ))}
         </div>
     );
