@@ -9,7 +9,7 @@ export function CurrentWeatherPanel() {
       <div className={styles.container}>
         <div className={styles.location}>
           <MapPin size={16} />
-          <p>Oulu</p>
+          <p>Oulu, FI</p>
         </div>
         <div className={styles.date}>
           <p>Sunday</p>

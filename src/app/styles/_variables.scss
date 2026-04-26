@@ -1,8 +1,27 @@
-$fontSmall : 14px;
-$fontMedium : 16px;
+// ── Type scale ────────────────────────────────────────────────────────────────
+$fontXs   : 11px;   // labels, tags, country codes
+$fontSm   : 13px;   // captions, tabs, units
+$fontBase : 15px;   // body / default
+$fontMd   : 17px;   // card titles, section headers
+$fontLg   : 22px;   // metric values
+$fontXl   : 28px;   // sub-hero numbers
+$font2xl  : 48px;   // hero temperature
+
+// legacy aliases kept for backward compatibility
+$fontSmall  : 13px;
+$fontMedium : 15px;
+
+// ── Font weights ──────────────────────────────────────────────────────────────
 $fontWeight400 : 400;
+$fontWeight600 : 600;
 $fontWeight700 : 700;
 
-$colorPrimary : #000;
-$colorSecondary : #888;
-
+// ── Color tokens ─────────────────────────────────────────────────────────────
+$colorPrimary   : #111827;   // headings, strong values
+$colorBody      : #374151;   // body text
+$colorSecondary : #6b7280;   // secondary / muted text
+$colorMuted     : #9ca3af;   // labels, placeholders
+$colorBorder    : #e4e4e4;   // card borders, dividers
+$colorSurface   : #f8f8f8;   // card backgrounds
+$colorAccent    : #e0a326;   // active tab highlight
+$colorSuccess   : #12d89c;   // active metric highlight

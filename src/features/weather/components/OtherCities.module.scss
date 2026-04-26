@@ -1,5 +1,6 @@
 @use "../../../app/styles/variables" as *;
 @use "../../../app/styles/mixins" as *;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,12 +12,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding:12px 12px 0 12px;
+  padding: 12px 12px 0 12px;
 
   h2 {
     margin: 0;
-    font-size: 16px;
+    font-size: $fontMd;
     font-weight: $fontWeight700;
+    color: $colorPrimary;
   }
 
   button {
@@ -28,7 +30,7 @@
     color: $colorSecondary;
     cursor: pointer;
     font: inherit;
-    font-size: 12px;
+    font-size: $fontSm;
   }
 }
 
@@ -36,28 +38,29 @@
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  padding: 0px 12px 12px 12px;
+  padding: 0 12px 12px 12px;
   gap: 8px;
-   @include respond(tablet) {
-  flex-direction: column;
-  overflow-x: unset;
- }
- 
+
+  @include respond(tablet) {
+    flex-direction: column;
+    overflow-x: unset;
+  }
 }
 
 .cityCard {
-  width: fit-content !important ;
+  width: fit-content !important;
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  gap:16px;
+  gap: 16px;
+
   @include respond(tablet) {
-  gap: 12px;
-  min-height: 66px;
-  width: 100% !important ;
-  gap:0;
+    gap: 12px;
+    min-height: 66px;
+    width: 100% !important;
+    gap: 0;
   }
-  
+
   p,
   h3 {
     margin: 0;
@@ -66,21 +69,23 @@
 
   h3 {
     margin: 6px 0;
-    font-size: 14px;
+    font-size: $fontBase;
     font-weight: $fontWeight700;
+    color: $colorPrimary;
   }
 }
 
 .country {
-  color: #b4b4b4;
-  font-size: 10px;
+  color: $colorMuted;
+  font-size: $fontXs;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .description {
   margin-top: 3px;
   color: $colorSecondary;
-  font-size: 11px;
+  font-size: $fontSm;
 }
 
 .cityIcon {
@@ -89,12 +94,12 @@
 
 .temperature {
   color: $colorPrimary;
-  font-size: 14px;
+  font-size: $fontBase;
   font-weight: $fontWeight700;
 
   span {
     color: $colorSecondary;
-    font-size: 12px;
+    font-size: $fontSm;
     font-weight: $fontWeight400;
   }
 }

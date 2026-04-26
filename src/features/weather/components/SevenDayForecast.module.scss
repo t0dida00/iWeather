@@ -12,46 +12,49 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px 12px 0 12px;
+
   h2 {
     margin: 0;
     color: $colorPrimary;
-    font-size: 18px;
+    font-size: $fontMd;
     font-weight: $fontWeight700;
   }
 
   span {
     color: $colorSecondary;
-    font-size: 12px;
+    font-size: $fontXs;
   }
 }
 
 .dayList {
   display: flex;
-flex-direction: row;
+  flex-direction: row;
   gap: 10px;
   overflow-x: auto;
-   padding: 0 12px 12px 12px;
+  padding: 0 12px 12px 12px;
 }
 
 .dayCard {
   display: flex;
   min-height: 128px;
   flex-direction: column;
-  min-width: 96px;
+  min-width: 112px;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid $colorBorder;
   border-radius: 10px;
-  background: #f8f8f8;
+  background: $colorSurface;
   color: $colorPrimary;
   transition: 0.2s border-color, 0.2s background-color, 0.2s transform;
   cursor: pointer;
+
   span {
-    color: $colorSecondary;
-    font-size: 10px;
+    color: $colorMuted;
+    font-size: $fontXs;
     font-weight: $fontWeight700;
     text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   svg {
@@ -59,13 +62,14 @@ flex-direction: row;
   }
 
   strong {
-    font-size: 16px;
+    font-size: $fontBase;
+    font-weight: $fontWeight700;
   }
 
   p {
     margin: 0;
     color: $colorSecondary;
-    font-size: 11px;
+    font-size: $fontXs;
   }
 }
 

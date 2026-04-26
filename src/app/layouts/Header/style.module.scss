@@ -1,76 +1,70 @@
 @use "../../styles/mixins" as *;
 @use "../../styles/variables" as *;
+
 .headerContainer {
   width: 100%;
 }
+
 .headerWrapper {
- padding: 12px;
+  padding: 12px;
   display: grid;
-    grid-template-areas:
+  grid-template-areas:
     "greeting toggleButtons"
     "searchBar searchBar";
-  gap:12px;
+  gap: 12px;
   justify-content: space-between;
   align-items: center;
-  .greeting, .toggleButtons{
+
+  .greeting,
+  .toggleButtons {
     grid-row: 1;
   }
 
-   @include respond(tablet){
-     @include flexCenterBetween;
-     flex-direction: row;
-     padding: 13px 12px;
-      
- }
- 
+  @include respond(tablet) {
+    @include flexCenterBetween;
+    flex-direction: row;
+    padding: 13px 12px;
+  }
 }
-.greeting{
-  
+
+.greeting {
   display: flex;
   flex-direction: column;
   width: fit-content;
   justify-content: center;
-  gap: 4px;
-  p:first-child{
-    font-size: $fontSmall;
-    color: $colorSecondary;
+  gap: 3px;
+
+  p:first-child {
+    font-size: $fontSm;
+    color: $colorMuted;
     font-weight: $fontWeight400;
   }
-  p:last-child{
-      font-size: $fontMedium;
+
+  p:last-child {
+    font-size: $fontBase;
     color: $colorPrimary;
     font-weight: $fontWeight700;
   }
-  
 }
-// .header__container {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 20px;
-// }
 
-// .header__container p {
-//   margin: 0;
-// }
+.toggleButtons {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-self: flex-end;
 
+  button {
+    max-height: 34px;
+  }
 
-.toggleButtons{
-    width: fit-content ;
+  @include respond(mobile) {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    justify-self: flex-end;
-    button{
-          max-height: 34px;
-
-    }
-    @include respond(mobile){display: flex;
-  gap: 12px;
-  flex-direction: row;}
-  
+    gap: 12px;
+    flex-direction: row;
+  }
 }
 
-.searchBar{
+.searchBar {
   grid-area: searchBar;
 }

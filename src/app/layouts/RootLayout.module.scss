@@ -1,15 +1,20 @@
-body{
-    font-family: 'Space Grotesk', sans-serif;
-    padding:0px;
-    margin:0px;
-    
+@use "../styles/variables" as *;
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: $fontBase;
+  color: $colorBody;
+  padding: 0;
+  margin: 0;
 }
-.appContainer{
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0px;
+
+.appContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
 }
-p{
-    padding:0px;
-    margin:0px;
+
+p {
+  padding: 0;
+  margin: 0;
 }

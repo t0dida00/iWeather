@@ -1,29 +1,28 @@
+@use "../../../app/styles/variables" as *;
+
 .toggle {
- display:flex;
- align-items:center;
- gap:8px;
-
- padding:4px;
- border-radius:999px;
-
- border:none;
- cursor:pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
 }
 
-.toggle span{
- width:32px;
- height:32px;
-
- display:flex;
- align-items:center;
- justify-content:center;
-
- border-radius:50%;
- opacity:.5;
+.toggle span {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
 }
 
-.active{
- opacity:1;
- background:#111;
- color:white;
+.active {
+  opacity: 1;
+  background: $colorPrimary;
+  color: #ffffff;
 }
