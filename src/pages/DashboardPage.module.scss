@@ -32,12 +32,12 @@
   display: none;
 }
 
-.sidebar {
-  @include respond(tablet) {
-    position: sticky;
-    top: 12px;
-  }
-}
+// .sidebar {
+//   @include respond(tablet) {
+//     position: sticky;
+//     top: 12px;
+//   }
+// }
 
 .sidebarCities {
   @include respond(tablet) {
