@@ -1,0 +1,33 @@
+@use "../../../app/styles/variables" as *;
+@use "../../../app/styles/mixins" as *;
+.weatherInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap:8px;
+
+  .weatherInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    font-size: $fontSm;
+    color: $colorPrimary;
+  }
+
+  .temperature {
+    .temperatureValue {
+      font-size: $font2xl;
+      font-weight: $fontWeight700;
+      color: $colorPrimary;
+      line-height: 1;
+    }
+    .tempUnit{
+        vertical-align: top;
+    }
+  }
+  .feelsLike{
+    color:$colorSecondary;
+  }
+}

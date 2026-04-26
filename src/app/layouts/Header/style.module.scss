@@ -19,11 +19,21 @@
   .toggleButtons {
     grid-row: 1;
   }
-
+  .toggleButtons {
+     &>div:nth-child(2) {
+        display: none;
+     }
+  }
+  
   @include respond(tablet) {
     @include flexCenterBetween;
     flex-direction: row;
     padding: 13px 12px;
+    .toggleButtons {
+     &>div:nth-child(2) {
+        display: flex;
+     }
+  }
   }
 }
 

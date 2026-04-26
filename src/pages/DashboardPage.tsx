@@ -1,4 +1,4 @@
-import { CurrentWeatherPanel, OtherCities, SevenDayForecast, TwentyFourHourForecast, TodaysHighlight } from "../features/weather";
+import { CurrentWeatherPanel, OtherCities, SevenDayForecast, TwentyFourHourForecast, TodaysHighlight, CurrentWeatherPanelMobile } from "../features/weather";
 import { useCurrentWeather } from "../features/weather/hooks/useCurrentWeather";
 import styles from "./DashboardPage.module.scss"
 export function DashboardPage() {
@@ -15,6 +15,7 @@ export function DashboardPage() {
             <section className={styles.sidebar}>
                 <CurrentWeatherPanel />
                 <OtherCities />
+                <CurrentWeatherPanelMobile />
             </section>
             <section className={styles.mainContent}>
                 <TodaysHighlight />
