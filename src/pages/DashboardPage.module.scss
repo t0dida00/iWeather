@@ -25,20 +25,59 @@
 }
 
 .sidebar {
- 
-  > div:nth-child(2) {
-    display: none;
-  }
+  position: static;
+}
 
- 
+.sidebarCities {
+  display: none;
+}
+
+.sidebar {
+  @include respond(tablet) {
+    position: sticky;
+    top: 12px;
+  }
+}
+
+.sidebarCities {
+  @include respond(tablet) {
+    display: block;
+  }
+}
+
+.mobileSummaryCard {
+  position: fixed;
+  top: 2px;
+  left: 12px;
+  right: 12px;
+  z-index: 20;
+  width: auto !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 
   @include respond(tablet) {
-  
-    > div:nth-child(2) {
-      display: block;
-    }
+    display: none;
+  }
+}
 
-   
+.sidebarSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: $colorSecondary;
+  font-size: $fontSm;
+
+  strong {
+    color: $colorPrimary;
+    font-size: $fontLg;
+    font-weight: $fontWeight700;
+    line-height: 1;
   }
 }
 .mainContent {
