@@ -13,7 +13,7 @@ export function TodaysHighlight() {
   return (
     <Card height="auto" width="100%" padding={12}>
       <section className={styles.container}>
-        <h2>Today&apos;s Highlight</h2>
+        <h2>Metrics</h2>
         <div className={styles.grid}>
           <Card
             background="var(--card-inner-background)"

@@ -166,7 +166,7 @@ export function TwentyFourHourForecast() {
   return (
     <Card height="auto" width="100%" padding={12}>
       <section className={styles.container}>
-        <h2>24 Hours Forecast</h2>
+        <h2>24-Hour Forecast</h2>
         <div className={styles.tabs}>
           <button
             className={activeTab === 'temperature' ? styles.activeTab : ''}

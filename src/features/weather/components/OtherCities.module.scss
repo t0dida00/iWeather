@@ -53,13 +53,13 @@
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 cursor: pointer;
   @include respond(tablet) {
     gap: 12px;
     min-height: 66px;
     width: 100% !important;
-    gap: 0;
+    gap: 12px;
   }
 
   p,

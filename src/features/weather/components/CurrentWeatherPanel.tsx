@@ -18,7 +18,7 @@ export function CurrentWeatherPanel() {
         <div className={styles.weatherInfoContainer}>
           <CloudSun size={80} />
           <div className={styles.weatherInfo}>
-            <p className={styles.temperature}><span className={styles.temperatureValue}>15</span>°C</p>
+            <p className={styles.temperature}><span className={styles.temperatureValue}>15</span> <span className={styles.tempUnit}>°C</span></p>
             <p className={styles.highLow}>H: 17°C L: 10°C</p>
             <p className={styles.description}>Partly Cloudy</p>
             <p className={styles.feelsLike}>Feels like 13°C</p>
