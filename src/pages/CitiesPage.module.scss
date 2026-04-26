@@ -37,6 +37,38 @@
   gap: 8px;
 }
 
+.skeletonCard {
+  min-height: 66px;
+  overflow: hidden;
+  position: relative;
+  background: var(--skeleton-background) !important;
+}
+
+.skeletonCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--skeleton-highlight) 50%,
+    transparent 100%
+  );
+  animation: skeletonPulse 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
