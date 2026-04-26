@@ -64,7 +64,7 @@ export function TodaysHighlight() {
             padding={14}
             width="100%"
           >
-            <Sunrise size={54} />
+            <Sunrise size={36} />
             <span>Sunrise</span>
             <strong>5:01 AM</strong>
           </Card>
@@ -118,7 +118,7 @@ export function TodaysHighlight() {
             padding={14}
             width="100%"
           >
-            <Sunset size={54} />
+            <Sunset size={36} />
             <span>Sunset</span>
             <strong>9:30 PM</strong>
           </Card>
