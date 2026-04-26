@@ -1,0 +1,80 @@
+@use "../../../app/styles/variables" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  h2 {
+    margin: 0;
+    color: $colorPrimary;
+    font-size: 18px;
+    font-weight: $fontWeight700;
+  }
+
+  span {
+    color: $colorSecondary;
+    font-size: 12px;
+  }
+}
+
+.dayList {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dayCard {
+  display: flex;
+  min-height: 128px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  background: #f8f8f8;
+  color: $colorPrimary;
+  transition: 0.2s border-color, 0.2s background-color, 0.2s transform;
+  cursor: pointer;
+  span {
+    color: $colorSecondary;
+    font-size: 10px;
+    font-weight: $fontWeight700;
+    text-transform: uppercase;
+  }
+
+  svg {
+    color: $colorPrimary;
+  }
+
+  strong {
+    font-size: 16px;
+  }
+
+  p {
+    margin: 0;
+    color: $colorSecondary;
+    font-size: 11px;
+  }
+}
+
+.activeDay {
+  border-color: #d0d0d0;
+  background: linear-gradient(180deg, #eeeeee 0%, #e5e5e5 100%);
+  box-shadow: inset 0 1px 0 #ffffff;
+}
+
+@media (max-width: 760px) {
+  .dayList {
+    grid-template-columns: repeat(4, minmax(96px, 1fr));
+    overflow-x: auto;
+  }
+}

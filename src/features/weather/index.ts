@@ -1,3 +1,5 @@
 export { CurrentWeatherPanel } from './components/CurrentWeatherPanel'
 export { OtherCities } from './components/OtherCities'
+export { SevenDayForecast } from './components/SevenDayForecast'
+export { TwentyFourHourForecast } from './components/TwentyFourHourForecast'
 export { TodaysHighlight } from './components/TodaysHighlight'

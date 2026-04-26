@@ -35,10 +35,6 @@ export function OtherCities() {
       <section className={styles.container}>
         <div className={styles.header}>
           <h2>Other Cities</h2>
-          {/* <button type="button">
-            See All
-            <ChevronDown size={14} />
-          </button> */}
         </div>
 
         <div className={styles.cityList}>
@@ -46,7 +42,16 @@ export function OtherCities() {
             const Icon = city.icon
 
             return (
-              <article className={styles.cityCard} key={city.name}>
+              <Card
+                background="#f8f8f8"
+                borderColor="#e4e4e4"
+                borderRadius={8}
+                className={styles.cityCard}
+                height="auto"
+                key={city.name}
+                padding="10px 12px"
+                width="100%"
+              >
                 <div>
                   <p className={styles.country}>{city.country}</p>
                   <h3>{city.name}</h3>
@@ -59,7 +64,7 @@ export function OtherCities() {
                   {city.temperature}
                   <span>/{city.range}</span>
                 </p>
-              </article>
+              </Card>
             )
           })}
         </div>
