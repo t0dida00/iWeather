@@ -13,8 +13,8 @@ export default function TemperatureToggle() {
             value={temp}
             onChange={(value) => toggleTemp(value as TempUnit)}
             options={[
-                { label: "Celsius", value: "celsius", imgSrc: "/assets/sun.png" },
-                { label: "Fahrenheit", value: "fahrenheit", imgSrc: "/assets/moon.png" }
+                { label: "°C", value: "celsius" },
+                { label: "°F", value: "fahrenheit" }
             ]}
         />
     )

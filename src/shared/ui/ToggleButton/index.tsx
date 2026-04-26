@@ -1,10 +1,11 @@
 import Button from "../Button";
 import styles from "./Toggle.module.scss";
+import type { ReactNode } from "react";
 
 type ToggleOption = {
     label: string;
     value: string;
-    imgSrc?: string;
+    icon?: ReactNode;
 };
 
 type ToggleProps = {
@@ -22,20 +23,12 @@ export default function Toggle({
     return (
         <div className={styles.toggle}>
             {options.map(option => (
-                // <button
-                //     key={option.value}
-                //     type="button"
-                //     onClick={() => onChange(option.value)}
-                //     className={
-                //         value === option.value
-                //             ? styles.active
-                //             : styles.button
-                //     }
-                // >
-                //     {option.imgSrc ? <img src={option.imgSrc} alt={option.label} /> : option.label}
-                // </button>
-                <Button key={option.value} onClick={() => onChange(option.value)} className={value === option.value ? styles.active : styles.button}>
-                    {option.imgSrc ? <img src={option.imgSrc} alt={option.label} /> : option.label}
+                <Button
+                    key={option.value}
+                    onClick={() => onChange(option.value)}
+                    className={value === option.value ? styles.active : styles.button}
+                >
+                    {option.icon ?? option.label}
                 </Button>
             ))}
         </div>

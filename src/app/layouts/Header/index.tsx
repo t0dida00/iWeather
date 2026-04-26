@@ -11,11 +11,19 @@ export function Header() {
           <p>Hi, Corsearch</p>
           <p>Good Morning</p>
         </div>
-        <LocationSearch />
+        <div className={styles.searchBar}>
+          <LocationSearch />
+        </div>
+
         <div className={styles.toggleButtons}>
           <ThemeToggle />
           <TemperatureToggle />
         </div>
+
+
+
+
+
       </div>
     </header>
   )

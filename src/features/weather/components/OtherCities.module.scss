@@ -1,5 +1,5 @@
 @use "../../../app/styles/variables" as *;
-
+@use "../../../app/styles/mixins" as *;
 .container {
   display: flex;
   flex-direction: column;
@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding:12px 12px 0 12px;
 
   h2 {
     margin: 0;
@@ -33,17 +34,30 @@
 
 .cityList {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow-x: auto;
+  padding: 0px 12px 12px 12px;
   gap: 8px;
+   @include respond(tablet) {
+  flex-direction: column;
+  overflow-x: unset;
+ }
+ 
 }
 
 .cityCard {
+  width: fit-content !important ;
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
+  gap:16px;
+  @include respond(tablet) {
   gap: 12px;
   min-height: 66px;
-
+  width: 100% !important ;
+  gap:0;
+  }
+  
   p,
   h3 {
     margin: 0;

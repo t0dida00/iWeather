@@ -1,16 +1,16 @@
 @use "../../../../app/styles/variables" as *;
-
+@use "../../../../app/styles/mixins" as *;
 .searchBar {
   position: relative;
   display: flex;
   align-items: center;
-  width: min(100%, 260px);
-  transition: width 180ms ease;
+  // width: min(100%, 260px);
+ 
 
-  &:focus-within {
-    width: min(100%, 300px);
-  }
-
+  // &:focus-within {
+  //   width: min(100%, 300px);
+  // }
+ 
   svg {
     position: absolute;
     left: 14px;

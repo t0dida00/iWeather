@@ -31,7 +31,7 @@ const cities = [
 
 export function OtherCities() {
   return (
-    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={18}>
+    <Card borderColor="#e4e4e4" height="auto" width="100%" padding={0}>
       <section className={styles.container}>
         <div className={styles.header}>
           <h2>Other Cities</h2>
@@ -49,8 +49,8 @@ export function OtherCities() {
                 className={styles.cityCard}
                 height="auto"
                 key={city.name}
-                padding="10px 12px"
-                width="100%"
+                padding="12px"
+                width="auto"
               >
                 <div>
                   <p className={styles.country}>{city.country}</p>

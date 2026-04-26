@@ -1,17 +1,7 @@
-// @mixin weight400 {
-//     font-weight: 400;
-// }
 
-// @mixin weight700 {
-//     font-weight: 700;
-// }
+@use "sass:map";
+@use "./breakpoints" as bp;
 
-// @mixin size14 {
-//     font-size: 14px;
-// }
-// @mixin size16 {
-//     font-size: 16px;
-// }
 @mixin flexCenter {
     display: flex;
     justify-content: center;
@@ -31,3 +21,13 @@
     align-items: center;
 }
 
+@mixin respond($size){
+ @media (
+   min-width: map.get(
+      bp.$breakpoints,
+      $size
+   )
+ ){
+   @content;
+ }
+}
