@@ -20,6 +20,7 @@ export function DashboardPage() {
                 <TodaysHighlight />
                 <TwentyFourHourForecast />
                 <SevenDayForecast />
+                <OtherCities />
             </section>
         </div>
 
