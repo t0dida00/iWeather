@@ -5,6 +5,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  z-index: 10;
 
   svg {
     position: absolute;
@@ -37,5 +38,54 @@
     &:focus {
       border-color: $colorPrimary;
     }
+  }
+}
+
+.results {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: var(--card-background);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+
+  p {
+    margin: 0;
+    padding: 10px 12px;
+    color: $colorSecondary;
+    font-size: $fontSm;
+  }
+}
+
+.result {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  color: $colorPrimary;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  span {
+    font-size: $fontSm;
+    font-weight: $fontWeight700;
+  }
+
+  small {
+    color: $colorSecondary;
+    font-size: $fontXs;
   }
 }

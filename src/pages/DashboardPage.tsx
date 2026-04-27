@@ -10,7 +10,6 @@ import { convertStringToDay } from "../shared/utils/common";
 
 export function DashboardPage() {
     const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData, sevenDayData, selectedDay, setSelectedDay } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
-    console.log({ isError, error, data, todayWeatherData, oneDayHourlyData, sevenDayData })
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
