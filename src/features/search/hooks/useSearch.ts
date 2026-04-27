@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { searchLocations, type LocationSearchResult } from '../api/searchApi'
 import { useNavigate } from 'react-router-dom';
+import { useSearchHistory } from './useSearchHistory';
 
 const SEARCH_DEBOUNCE_MS = 500
 
@@ -10,7 +11,8 @@ const sanitizeSearchValue = (value: string): string => value.replace(/[^a-zA-Z\s
 export function useSearch() {
   const [searchValue, setSearchValue] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { history, addToHistory, clearHistory } = useSearchHistory();
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -30,6 +32,7 @@ const navigate = useNavigate();
     const { latitude, longitude,name, country_code } = location
     setSearchValue('')
     setDebouncedSearchValue('')
+    addToHistory({name, country_code, latitude, longitude} );
     // console.log(`/overview?lat=${latitude}&lon=${longitude}&city=${name}&code=${country_code}`)
       navigate({
       pathname: '/overview',
