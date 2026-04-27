@@ -69,11 +69,11 @@ export function DashboardPage() {
                         <Card className={styles.mobileSummaryCard} height="auto" width="100%" padding={12}>
                             <div className={styles.sidebarSummary}>
                                 <div className={styles.summaryRow}>
-                                    <strong>{roundNumber(todayWeatherData?.temperature)}°C</strong>
+                                    <strong>{roundNumber(todayWeatherData?.temperature)}{todayWeatherData?.temperatureUnit}</strong>
                                     <span>Oulu, FI</span>
                                 </div>
                                 <div className={styles.summaryRow}>
-                                    <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}°C</span>
+                                    <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}{todayWeatherData?.temperatureUnit}</span>
                                     <span>{convertStringToDay(todayWeatherData?.datetime || '')}</span>
                                 </div>
                             </div>
