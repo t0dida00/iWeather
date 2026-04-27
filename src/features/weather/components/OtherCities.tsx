@@ -31,7 +31,7 @@ export function OtherCities() {
     <Card height="auto" width="100%" padding={0}>
       <section className={styles.container}>
         <div className={styles.header}>
-          <h2>Other Cities</h2>
+          <h2>Other Cities (Current Day)</h2>
         </div>
 
         <div className={styles.cityList}>

@@ -60,7 +60,7 @@
 .toggleButtons {
   width: fit-content;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 4px;
   justify-self: flex-end;
 
@@ -68,11 +68,11 @@
     max-height: 34px;
   }
 
-  @include respond(mobile) {
-    display: flex;
-    gap: 12px;
-    flex-direction: row;
-  }
+  // @include respond(mobile) {
+  //   display: flex;
+  //   gap: 12px;
+  //   flex-direction: row;
+  // }
 }
 
 .searchBar {
