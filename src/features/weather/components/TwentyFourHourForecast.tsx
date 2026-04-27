@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { graphic, init, use } from 'echarts/core'
 import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
@@ -8,6 +8,7 @@ import styles from './TwentyFourHourForecast.module.scss'
 import type { TwentyFourHourWeatherData } from '../types'
 import { roundNumber } from '../../../shared/utils/roundNumber'
 import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
+import { convertStringToTime } from '../../../shared/utils/common'
 
 use([LineChart, GridComponent, TooltipComponent, CanvasRenderer])
 
@@ -18,19 +19,30 @@ type TooltipParam = {
   value: number
 }
 
-const forecastTimes = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
-
-
-
 export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData | null }) {
   const chartRef = useRef<HTMLDivElement>(null)
   const [activeTab, setActiveTab] = useState<ForecastTab>('temperature')
+  const [isUpdating, setIsUpdating] = useState(false)
+  const forecastKey = data.data?.time.join('|') || ''
+  const forecastTimes = useMemo(() => data.data?.time.map(convertStringToTime) || [], [data.data?.time])
 
-  if (!data.data) {
-    return <p style={{ textAlign: "center" }}>Loading 24-hour forecast...</p>
-  }
+  useEffect(() => {
+    if (!forecastKey) {
+      return
+    }
 
-  let forecastData = {
+    setIsUpdating(true)
+    const timeoutId = window.setTimeout(() => setIsUpdating(false), 180)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [forecastKey])
+
+  const forecastData = useMemo(() => {
+    if (!data.data) {
+      return null
+    }
+
+    return {
     temperature: {
       unit: data.data?.temperatureUnit || '°C',
       min: roundNumber(data.data?.tempLow) - 3,
@@ -58,9 +70,10 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
       areaStart: 'rgba(95, 140, 255, 0.22)',
       areaEnd: 'rgba(95, 140, 255, 0.02)'
     }
-  }
+    }
+  }, [data.data])
   useEffect(() => {
-    if (!chartRef.current) {
+    if (!chartRef.current || !forecastData) {
       return
     }
 
@@ -154,7 +167,7 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
             return `${point.name}: ${point.value}${currentForecast.unit} `
           }
         }
-      })
+      }, true)
     }
 
     setChartOptions()
@@ -173,7 +186,11 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
       themeObserver.disconnect()
       chart.dispose()
     }
-  }, [activeTab])
+  }, [activeTab, forecastData, forecastTimes])
+
+  if (!data.data) {
+    return <p style={{ textAlign: "center" }}>Loading 24-hour forecast...</p>
+  }
 
   return (
     <Card height="auto" width="100%" padding={12}>
@@ -203,6 +220,11 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
           </button>
         </div>
         <div className={styles.chartWrapper}>
+          {isUpdating && (
+            <div className={styles.loadingOverlay} aria-label="Updating 24-hour forecast" aria-live="polite">
+              <span className={styles.spinner} />
+            </div>
+          )}
           <div className={styles.chart} ref={chartRef} />
           <div className={styles.forecastSymbols}>
             {forecastTimes.map((time, index) => {
@@ -215,7 +237,7 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
                   {WeatherIcon && (
                     <WeatherIcon size={20} />
                   )}
-                  <span>{forecastTimes[index]}</span>
+                  <span>{time}</span>
                 </div>
               )
             })}

@@ -5,7 +5,13 @@ import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
 import { roundNumber } from '../../../shared/utils/roundNumber'
 import { convertStringToDay } from '../../../shared/utils/common'
 
-export function SevenDayForecast({ data }: { data: SevenDayWeatherData | null }) {
+type SevenDayForecastProps = {
+  data: SevenDayWeatherData | null
+  selectedDay?: string
+  onSelectDay?: (date: string) => void
+}
+
+export function SevenDayForecast({ data, selectedDay, onSelectDay }: SevenDayForecastProps) {
   if (!data) {
     return null
   }
@@ -29,8 +35,16 @@ export function SevenDayForecast({ data }: { data: SevenDayWeatherData | null })
 
             return (<article
               aria-label={`${day}: ${weatherDescription}, high ${high} degrees, low ${low} degrees`}
-              className={styles.dayCard}
+              className={`${styles.dayCard} ${selectedDay === date ? styles.activeDay : ''}`}
               key={date}
+              onClick={() => onSelectDay?.(date)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelectDay?.(date)
+                }
+              }}
+              role="button"
               tabIndex={0}
             >
               <span>{day}</span>

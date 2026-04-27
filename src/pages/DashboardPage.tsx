@@ -9,7 +9,7 @@ import { roundNumber } from "../shared/utils/roundNumber";
 import { convertStringToDay } from "../shared/utils/common";
 
 export function DashboardPage() {
-    const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData, sevenDayData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
+    const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData, sevenDayData, selectedDay, setSelectedDay } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
     console.log({ isError, error, data, todayWeatherData, oneDayHourlyData, sevenDayData })
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
@@ -86,7 +86,7 @@ export function DashboardPage() {
                 <section className={styles.mainContent}>
                     <TodaysHighlight data={todayWeatherData} />
                     <TwentyFourHourForecast data={oneDayHourlyData} />
-                    <SevenDayForecast data={sevenDayData} />
+                    <SevenDayForecast data={sevenDayData} selectedDay={selectedDay} onSelectDay={setSelectedDay} />
                     <OtherCities />
                 </section>
             </div>

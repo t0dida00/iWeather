@@ -55,6 +55,30 @@
   height: 150px;
 }
 
+.loadingOverlay {
+  position: absolute;
+  inset: 0 0 46px 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--card-background) 55%, transparent);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--card-inner-border);
+  border-top-color: $colorAccent;
+  border-radius: 999px;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .forecastSymbols {
   position: absolute;
   right: 15px;
