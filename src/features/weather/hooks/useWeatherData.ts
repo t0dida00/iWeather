@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getWeatherData } from '../api/weatherApi'
-import type { Coordinates, TodayWeatherData } from '../types'
+import type { Coordinates, TodayWeatherData, TwentyFourHourWeatherData } from '../types'
 export function useWeatherData({ lat, lon }: Coordinates) {
 
   const { data, isError, isPending, error } = useQuery({
@@ -32,8 +32,32 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     uvIndexUnit: data.hourly_units.uv_index,
 
   } : null
-  console.log(todayWeatherData)
-  return { data, todayWeatherData,
+
+const everyTwoHours = <T,>(arr: T[]) =>
+  arr.slice(0, 24).filter((_, i) => i % 2 === 0)
+
+const oneDayHourlyData: TwentyFourHourWeatherData | null =
+  data?.hourly && data?.daily
+    ? {
+        time: everyTwoHours(data.hourly.time),
+        temperature: everyTwoHours(data.hourly.temperature_2m),
+        weatherCode: everyTwoHours(data.hourly.weather_code),
+        windSpeed: everyTwoHours(data.hourly.wind_speed_10m),
+        precipitationProbability: everyTwoHours(
+          data.hourly.precipitation_probability
+        ),
+        precipitationProbabilityMax: Math.max(...data.hourly.precipitation_probability),
+        temperatureUnit: data.hourly_units.temperature_2m,
+        windSpeedUnit: data.hourly_units.wind_speed_10m,
+        windSpeedMax: Math.max(...data.hourly.wind_speed_10m),
+
+        tempHigh: data.daily.temperature_2m_max[0],
+        tempLow: data.daily.temperature_2m_min[0],
+      }
+    : null
+
+  console.log(data)
+  return { data, todayWeatherData, oneDayHourlyData,
     isError, 
     isPending, 
     error }

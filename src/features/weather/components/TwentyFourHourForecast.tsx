@@ -3,6 +3,9 @@ import * as echarts from 'echarts'
 import { Cloud, CloudSun, Sun } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
 import styles from './TwentyFourHourForecast.module.scss'
+import type { TwentyFourHourWeatherData } from '../types'
+import { roundNumber } from '../../../shared/utils/roundNumber'
+import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
 
 type ForecastTab = 'temperature' | 'rain' | 'wind'
 
@@ -13,7 +16,7 @@ type TooltipParam = {
 
 const forecastTimes = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
 
-const forecastData = {
+let forecastData = {
   temperature: {
     unit: '°C',
     min: 12,
@@ -43,10 +46,44 @@ const forecastData = {
   }
 }
 
-export function TwentyFourHourForecast() {
+export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData | null }) {
   const chartRef = useRef<HTMLDivElement>(null)
   const [activeTab, setActiveTab] = useState<ForecastTab>('temperature')
+  console.log(data)
 
+  if (!data.data) {
+    return <p style={{ textAlign: "center" }}>Loading 24-hour forecast...</p>
+  }
+
+  let forecastData = {
+    temperature: {
+      unit: data.data?.temperatureUnit || '°C',
+      min: roundNumber(data.data?.tempLow) - 3,
+      max: roundNumber(data.data?.tempHigh) + 3,
+      color: '#e0a326',
+      values: data.data.temperature.map(temp => roundNumber(temp)),
+      areaStart: 'rgba(224, 163, 38, 0.34)',
+      areaEnd: 'rgba(224, 163, 38, 0.02)'
+    },
+    rain: {
+      unit: '%',
+      min: 0,
+      max: data.data.precipitationProbabilityMax + 5,
+      color: '#78aef7',
+      values: data.data.precipitationProbability.map(prob => roundNumber(prob)),
+      areaStart: 'rgba(120, 174, 247, 0.28)',
+      areaEnd: 'rgba(120, 174, 247, 0.02)'
+    },
+    wind: {
+      unit: data.data?.windSpeedUnit || 'm/s',
+      min: 0,
+      max: data.data.windSpeedMax + 5,
+      color: '#5f8cff',
+      values: data.data.windSpeed.map(speed => roundNumber(speed)),
+      areaStart: 'rgba(95, 140, 255, 0.22)',
+      areaEnd: 'rgba(95, 140, 255, 0.02)'
+    }
+  }
   useEffect(() => {
     if (!chartRef.current) {
       return
@@ -139,7 +176,7 @@ export function TwentyFourHourForecast() {
           formatter: (params: TooltipParam | TooltipParam[]) => {
             const point = Array.isArray(params) ? params[0] : params
 
-            return `${point.name}: ${point.value}${currentForecast.unit}`
+            return `${point.name}: ${point.value}${currentForecast.unit} `
           }
         }
       })
@@ -193,11 +230,22 @@ export function TwentyFourHourForecast() {
         <div className={styles.chartWrapper}>
           <div className={styles.chart} ref={chartRef} />
           <div className={styles.forecastSymbols}>
-            <div className={styles.forecastSymbol}>
-              <Cloud size={20} />
-              <span>00:00</span>
-            </div>
-            <div className={styles.forecastSymbol}>
+            {forecastTimes.map((time, index) => {
+              const weatherCode = data.data?.weatherCode[index] || 0
+              const WeatherIcon =
+                WEATHER_CODE_MAP[weatherCode]?.icon;
+              const weatherDescription = WEATHER_CODE_MAP[weatherCode]?.label || 'Unknown weather'
+              return (
+                <div className={styles.forecastSymbol} aria-description={weatherDescription} key={time} title={weatherDescription}>
+                  {WeatherIcon && (
+                    <WeatherIcon size={20} />
+                  )}
+                  <span>{forecastTimes[index]}</span>
+                </div>
+              )
+            })}
+
+            {/* <div className={styles.forecastSymbol}>
               <Cloud size={20} />
               <span>02:00</span>
             </div>
@@ -240,7 +288,7 @@ export function TwentyFourHourForecast() {
             <div className={styles.forecastSymbol}>
               <Cloud size={20} />
               <span>22:00</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

@@ -24,6 +24,7 @@ export async function getWeatherData({ lat, lon }: Coordinates) {
     'sunset',
     'temperature_2m_min',
     'temperature_2m_max',
+   
   ]
 
   const hourly = [
@@ -32,6 +33,7 @@ export async function getWeatherData({ lat, lon }: Coordinates) {
     'wind_speed_10m',
     'weather_code',
     'uv_index',
+     'precipitation_probability',
   ]
 
 

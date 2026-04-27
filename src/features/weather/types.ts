@@ -24,3 +24,18 @@ export type TodayWeatherData ={
     uvIndexUnit: string
 
 }
+
+export type TwentyFourHourWeatherData = {
+    time: string[]
+    temperature: number[]
+    weatherCode: number[]
+    temperatureUnit: string
+    tempHigh: number
+    tempLow: number
+    windSpeed: number[]
+    windSpeedUnit: string
+    precipitationProbability: number[]
+    precipitationProbabilityMax: number
+    windSpeedMax: number
+
+}

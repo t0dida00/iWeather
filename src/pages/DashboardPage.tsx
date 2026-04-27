@@ -8,8 +8,8 @@ import styles from "./DashboardPage.module.scss"
 import { roundNumber } from "../shared/utils/roundNumber";
 
 export function DashboardPage() {
-    const { isError, isPending, error, data, todayWeatherData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
-    console.log({ isError, error, data, todayWeatherData })
+    const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
+    console.log({ isError, error, data, todayWeatherData, oneDayHourlyData })
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
@@ -84,7 +84,7 @@ export function DashboardPage() {
                 </section>
                 <section className={styles.mainContent}>
                     <TodaysHighlight data={todayWeatherData} />
-                    <TwentyFourHourForecast />
+                    <TwentyFourHourForecast data={oneDayHourlyData} />
                     <SevenDayForecast />
                     <OtherCities />
                 </section>
