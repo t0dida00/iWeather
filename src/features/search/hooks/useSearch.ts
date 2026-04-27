@@ -12,7 +12,7 @@ export function useSearch() {
   const [searchValue, setSearchValue] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
   const navigate = useNavigate();
-  const { history, addToHistory, clearHistory } = useSearchHistory();
+  const   { addToHistory } = useSearchHistory();
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -29,10 +29,10 @@ export function useSearch() {
   })
 
   const selectLocation = (location: LocationSearchResult) => {
-    const { latitude, longitude,name, country_code } = location
+    const { latitude, longitude,name, country_code, country } = location
     setSearchValue('')
     setDebouncedSearchValue('')
-    addToHistory({name, country_code, latitude, longitude} );
+    addToHistory({name, country_code, country, latitude, longitude} );
     // console.log(`/overview?lat=${latitude}&lon=${longitude}&city=${name}&code=${country_code}`)
       navigate({
       pathname: '/overview',

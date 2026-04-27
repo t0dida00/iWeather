@@ -9,6 +9,9 @@ type CityCardProps = {
   condition: string
   tempHigh: string
   tempLow: string
+  latitude: number
+  longitude: number
+  code: string
 }
 
 const getWeatherIcon = (condition: string) => {
@@ -30,13 +33,15 @@ export default function CityCard({
   cityName,
   condition,
   tempHigh,
-  tempLow
+  tempLow,
+  latitude,
+  longitude,
+  code
 }: CityCardProps) {
   const Icon = getWeatherIcon(condition)
-  const cityQuery = encodeURIComponent(cityName.toLowerCase())
 
   return (
-    <Link className={styles.cityLink} to={`/overview/?city=${cityQuery}`}>
+    <Link className={styles.cityLink} to={`/overview/?city=${cityName}&code=${code}&lat=${latitude}&lon=${longitude}`}>
       <Card
         background="var(--card-inner-background)"
         borderColor="var(--card-inner-border)"

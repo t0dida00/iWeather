@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getWeatherData } from '../api/weatherApi'
 import type { Coordinates, TodayWeatherData, TwentyFourHourWeatherData } from '../types'
 import { getCurrentDay, getDayIndex, getHourDateTimeForDay, getRecentDateTimeIndex, getRecentDayIndexes, normalizeDate } from '../../../shared/utils/common'
 import { useTemp } from '../../preferences/hooks/useTemp'
+import { useSearchHistory } from '../../search/hooks/useSearchHistory'
 export function useWeatherData({ lat, lon }: Coordinates) {
   const [selectedDay, setSelectedDay] = useState(getCurrentDay())
+  const {updateHistory} = useSearchHistory()
   const { temp } = useTemp()
 
   const { data, isError, isPending, error } = useQuery({
@@ -80,6 +82,19 @@ const sevenDayData = data?.daily
       temperatureUnit:  data.hourly_units.temperature_2m,
     }
   : null
+
+  useEffect(() => {
+    if (!todayWeatherData) {
+      return
+    }
+
+    updateHistory(lat, lon, {
+      tempHigh: todayWeatherData.tempHigh,
+      tempLow: todayWeatherData.tempLow,
+      weatherCode: todayWeatherData.weatherCode,
+    })
+  }, [lat, lon, todayWeatherData?.tempHigh, todayWeatherData?.tempLow, todayWeatherData?.weatherCode, updateHistory])
+
   return { data, todayWeatherData, oneDayHourlyData, sevenDayData,
     selectedDay: normalizeDate(selectedDay),
     setSelectedDay,

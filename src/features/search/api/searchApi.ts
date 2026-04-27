@@ -3,7 +3,7 @@ import axios from 'axios'
 export type LocationSearchResult = {
   id: number
   name: string
-  country?: string
+  country: string
   admin1?: string
   latitude: number
   longitude: number

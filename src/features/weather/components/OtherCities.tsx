@@ -1,32 +1,48 @@
+import { useMemo } from 'react'
 import Card from '../../../shared/ui/Card'
 import CityCard from '../../../shared/ui/CityCard'
+import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
+import { useSearchHistory } from '../../search/hooks/useSearchHistory'
 import styles from './OtherCities.module.scss'
 
-const cities = [
-  {
-    countryName: 'Australia',
-    cityName: 'Canberra',
-    condition: 'Clear Sky',
-    tempHigh: '13°',
-    tempLow: '12°'
-  },
-  {
-    countryName: 'Japan',
-    cityName: 'Tokyo',
-    condition: 'Partly Cloudy',
-    tempHigh: '18°',
-    tempLow: '18°'
-  },
-  {
-    countryName: 'USA',
-    cityName: 'New York',
-    condition: 'Overcast',
-    tempHigh: '6°',
-    tempLow: '3°'
-  }
-]
+const MAX_OTHER_CITIES = 5
 
-export function OtherCities() {
+const formatTemperature = (value: number | undefined) =>
+  typeof value === 'number' ? `${Math.round(value)}°` : '--'
+
+const getConditionLabel = (code: number | undefined) =>
+  code != null ? WEATHER_CODE_MAP[code]?.label ?? 'Unknown' : 'Unknown'
+
+type OtherCitiesProps = {
+  currentLatitude?: number
+  currentLongitude?: number
+}
+
+export function OtherCities({ currentLatitude, currentLongitude }: OtherCitiesProps) {
+  const { history } = useSearchHistory()
+
+  const cities = useMemo(
+    () =>
+      history
+        .filter(
+          (entry) =>
+            entry.latitude !== currentLatitude || entry.longitude !== currentLongitude
+        )
+        .slice(0, MAX_OTHER_CITIES)
+        .map((entry, index) => ({
+          latitude: entry.latitude,
+          longitude: entry.longitude,
+          countryName: entry.country,
+          cityName: entry.name,
+          condition: getConditionLabel(entry.weatherCode),
+          tempHigh: formatTemperature(entry.tempHigh),
+          tempLow: formatTemperature(entry.tempLow),
+          key: `${entry.name}-${entry.country_code}-${index}`,
+          code: entry.country_code,
+        })),
+    [currentLatitude, currentLongitude, history]
+  )
+
   return (
     <Card height="auto" width="100%" padding={0}>
       <section className={styles.container}>
@@ -40,9 +56,12 @@ export function OtherCities() {
               condition={city.condition}
               countryName={city.countryName}
               cityName={city.cityName}
-              key={city.cityName}
+              key={city.key}
               tempHigh={city.tempHigh}
               tempLow={city.tempLow}
+              latitude={city.latitude}
+              longitude={city.longitude}
+              code={city.code}
             />
           ))}
         </div>

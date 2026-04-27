@@ -55,3 +55,22 @@ export async function getWeatherData({ lat, lon, tempUnit = 'celsius' }: Coordin
 
   return data
 }
+
+export async function getWeatherSummary({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
+  if (!weatherUrl) {
+    throw new Error('Missing VITE_OPEN_METEO_FORECAST_URL')
+  }
+  const daily =['temperature_2m_max', 'temperature_2m_min', 'weather_code']
+  const { data } = await axios.get(weatherUrl, {
+    params: {
+      latitude: lat,
+      longitude: lon,
+      daily: daily.join(','),
+      forecast_days: 1,
+      temperature_unit: tempUnit,
+      timezone: 'auto',
+    },
+  })
+
+  return data
+}

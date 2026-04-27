@@ -12,8 +12,6 @@ import { useOverviewParams } from "../features/weather/hooks/useOverviewParams";
 export function DashboardPage() {
     const { lat, lon, city, code } = useOverviewParams();
     const { isError, isPending, todayWeatherData, oneDayHourlyData, sevenDayData, selectedDay, setSelectedDay } = useWeatherData({ lat: lat, lon: lon })
-    console.log(isError, isPending)
-    console.log(lat, lon, city, code)
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
@@ -89,14 +87,14 @@ export function DashboardPage() {
                             </Card>
                         )}
                         <div className={styles.sidebarCities}>
-                            <OtherCities />
+                            <OtherCities currentLatitude={lat} currentLongitude={lon} />
                         </div>
                     </section>
                     <section className={styles.mainContent}>
                         <TodaysHighlight data={todayWeatherData} />
                         <TwentyFourHourForecast data={oneDayHourlyData} />
                         <SevenDayForecast data={sevenDayData} selectedDay={selectedDay} onSelectDay={setSelectedDay} />
-                        <OtherCities />
+                        <OtherCities currentLatitude={lat} currentLongitude={lon} />
                     </section>
                 </div>
             )}
