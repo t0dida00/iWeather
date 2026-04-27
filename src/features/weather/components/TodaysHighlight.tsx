@@ -34,7 +34,7 @@ export function TodaysHighlight({ data }: { data: TodayWeatherData }) {
               {data.windSpeed}
               <span>{data.windSpeedUnit}</span>
             </p>
-            <p className={styles.metricNote}>NW - 323°</p>
+            <p className={styles.metricNote}>NW - {data.windDirection}°</p>
           </Card>
 
           <Card

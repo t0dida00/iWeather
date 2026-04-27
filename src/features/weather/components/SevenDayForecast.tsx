@@ -38,7 +38,7 @@ export function SevenDayForecast({ data }: { data: SevenDayWeatherData | null })
               {/* <p><strong>{roundNumber(data.tempHigh[index])}°</strong>/{roundNumber(data.tempLow[index])}°</p> */}
               <p className={styles.temperature}>
                 {roundNumber(data.tempHigh[index])}°
-                <span>/{low}</span>
+                <span>/{low}°</span>
               </p>
               <p>{weatherDescription}</p>
             </article>)

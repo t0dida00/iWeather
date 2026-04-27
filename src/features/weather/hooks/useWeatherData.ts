@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getWeatherData } from '../api/weatherApi'
 import type { Coordinates, TodayWeatherData, TwentyFourHourWeatherData } from '../types'
+import { getRecentDateTimeIndex } from '../../../shared/utils/common'
 export function useWeatherData({ lat, lon }: Coordinates) {
 
   const { data, isError, isPending, error } = useQuery({
@@ -11,6 +12,7 @@ export function useWeatherData({ lat, lon }: Coordinates) {
   staleTime: 1000 * 60 * 10,
   refetchOnWindowFocus: false,
 })
+  const currentIndex = getRecentDateTimeIndex(data?.hourly?.time || []) 
   const todayWeatherData: TodayWeatherData | null  = data? {
     temperature: data.current.temperature_2m,
     apparentTemperature: data.current.apparent_temperature,
@@ -23,8 +25,10 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     tempLow: data.daily.temperature_2m_min[0],
     sunrise: data.daily.sunrise[0],
     sunset: data.daily.sunset[0],
-    visibility: data.hourly.visibility[0],
-    uvIndex: data.hourly.uv_index[0],
+
+    visibility: data.hourly.visibility[currentIndex],
+    uvIndex: data.hourly.uv_index[currentIndex],
+
     temperatureUnit: data.current_units.temperature_2m,
     windSpeedUnit: data.current_units.wind_speed_10m,
     windDirectionUnit: data.current_units.wind_direction_10m,
