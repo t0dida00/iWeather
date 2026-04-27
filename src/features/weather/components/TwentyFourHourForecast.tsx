@@ -49,7 +49,6 @@ let forecastData = {
 export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData | null }) {
   const chartRef = useRef<HTMLDivElement>(null)
   const [activeTab, setActiveTab] = useState<ForecastTab>('temperature')
-  console.log(data)
 
   if (!data.data) {
     return <p style={{ textAlign: "center" }}>Loading 24-hour forecast...</p>

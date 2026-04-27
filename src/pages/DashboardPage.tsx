@@ -6,10 +6,11 @@ import { useWeatherData } from "../features/weather/hooks/useWeatherData";
 import Card from "../shared/ui/Card";
 import styles from "./DashboardPage.module.scss"
 import { roundNumber } from "../shared/utils/roundNumber";
+import { convertStringToDay } from "../shared/utils/common";
 
 export function DashboardPage() {
-    const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
-    console.log({ isError, error, data, todayWeatherData, oneDayHourlyData })
+    const { isError, isPending, error, data, todayWeatherData, oneDayHourlyData, sevenDayData } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
+    console.log({ isError, error, data, todayWeatherData, oneDayHourlyData, sevenDayData })
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
@@ -73,7 +74,7 @@ export function DashboardPage() {
                                 </div>
                                 <div className={styles.summaryRow}>
                                     <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}°C</span>
-                                    <span>Sunday</span>
+                                    <span>{convertStringToDay(todayWeatherData?.datetime || '')}</span>
                                 </div>
                             </div>
                         </Card>
@@ -85,7 +86,7 @@ export function DashboardPage() {
                 <section className={styles.mainContent}>
                     <TodaysHighlight data={todayWeatherData} />
                     <TwentyFourHourForecast data={oneDayHourlyData} />
-                    <SevenDayForecast />
+                    <SevenDayForecast data={sevenDayData} />
                     <OtherCities />
                 </section>
             </div>

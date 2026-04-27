@@ -39,3 +39,12 @@ export type TwentyFourHourWeatherData = {
     windSpeedMax: number
 
 }
+
+export type SevenDayWeatherData = {
+    date: string[]
+    tempHigh: number[]
+    tempLow: number[]
+    weatherCode: number[]
+    temperatureUnit: string
+
+}

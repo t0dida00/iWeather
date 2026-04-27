@@ -24,6 +24,7 @@ export async function getWeatherData({ lat, lon }: Coordinates) {
     'sunset',
     'temperature_2m_min',
     'temperature_2m_max',
+    'weather_code',
    
   ]
 

@@ -26,7 +26,7 @@ export function CurrentWeatherPanel({ data }: { data: TodayWeatherData }) {
           )}
           <div className={styles.weatherInfo}>
             <p className={styles.temperature}><span className={styles.temperatureValue}>{roundNumber(data.temperature)}</span> <span className={styles.tempUnit}>{data.temperatureUnit}</span></p>
-            <p className={styles.highLow}>H: {roundNumber(data.tempHigh)}{data.temperatureUnit} L: {roundNumber(data.tempLow)}{data.temperatureUnit}</p>
+            <p className={styles.highLow}>H: {roundNumber(data.tempHigh)}° L: {roundNumber(data.tempLow)}°</p>
             <p className={styles.description}>{WEATHER_CODE_MAP[data.weatherCode]?.label || "Unknown"}</p>
             <p className={styles.feelsLike}>Feels  {roundNumber(data.apparentTemperature)}{data.temperatureUnit}</p>
           </div>

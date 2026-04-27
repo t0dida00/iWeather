@@ -1,8 +1,16 @@
 import { Cloud, CloudRain, CloudSun, Sun } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
 import styles from './SevenDayForecast.module.scss'
+import type { SevenDayWeatherData } from '../types'
+import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
+import { roundNumber } from '../../../shared/utils/roundNumber'
+import { convertStringToDay } from '../../../shared/utils/common'
 
-export function SevenDayForecast() {
+export function SevenDayForecast({ data }: { data: SevenDayWeatherData | null }) {
+  if (!data) {
+    return null
+  }
+
   return (
     <Card height="auto" width="100%" padding={0}>
       <section className={styles.container}>
@@ -11,54 +19,24 @@ export function SevenDayForecast() {
         </div>
 
         <div className={styles.dayList}>
-          <div className={`${styles.dayCard} ${styles.activeDay}`}>
-            <span>Today</span>
-            <Cloud size={34} />
-            <strong>5°C</strong>
-            <p>Cloudy</p>
-          </div>
 
-          <div className={styles.dayCard}>
-            <span>Tomorrow</span>
-            <Cloud size={34} />
-            <strong>6°C</strong>
-            <p>Cloudy</p>
-          </div>
+          {data.date.map((date, index) => {
+            const weatherCode = data.weatherCode[index] || 0
+            const WeatherIcon =
+              WEATHER_CODE_MAP[weatherCode]?.icon;
+            const weatherDescription = WEATHER_CODE_MAP[weatherCode]?.label || 'Unknown weather'
+            return (<div className={styles.dayCard}>
+              <span>{convertStringToDay(date)}</span>
+              <WeatherIcon size={34} />
+              {/* <p><strong>{roundNumber(data.tempHigh[index])}°</strong>/{roundNumber(data.tempLow[index])}°</p> */}
+              <p className={styles.temperature}>
+                {roundNumber(data.tempHigh[index])}°
+                <span>/{roundNumber(data.tempLow[index])}</span>
+              </p>
+              <p>{weatherDescription}</p>
+            </div>)
+          })}
 
-          <div className={styles.dayCard}>
-            <span>Tue</span>
-            <CloudSun size={34} />
-            <strong>7°C</strong>
-            <p>Partly</p>
-          </div>
-
-          <div className={styles.dayCard}>
-            <span>Wed</span>
-            <Cloud size={34} />
-            <strong>3°C</strong>
-            <p>Overcast</p>
-          </div>
-
-          <div className={styles.dayCard}>
-            <span>Thu</span>
-            <CloudRain size={34} />
-            <strong>9°C</strong>
-            <p>Rain</p>
-          </div>
-
-          <div className={styles.dayCard}>
-            <span>Fri</span>
-            <Sun size={34} />
-            <strong>10°C</strong>
-            <p>Sunny</p>
-          </div>
-
-          <div className={styles.dayCard}>
-            <span>Sat</span>
-            <CloudSun size={34} />
-            <strong>14°C</strong>
-            <p>Clear</p>
-          </div>
         </div>
       </section>
     </Card>

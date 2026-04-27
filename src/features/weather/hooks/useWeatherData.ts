@@ -55,9 +55,16 @@ const oneDayHourlyData: TwentyFourHourWeatherData | null =
         tempLow: data.daily.temperature_2m_min[0],
       }
     : null
-
-  console.log(data)
-  return { data, todayWeatherData, oneDayHourlyData,
+const sevenDayData = data?.daily
+  ? {
+      date: data.daily.time,
+      tempHigh: data.daily.temperature_2m_max,
+      tempLow: data.daily.temperature_2m_min,
+      weatherCode: data.daily.weather_code,
+      temperatureUnit:  data.current_units.temperature_2m,
+    }
+  : null
+  return { data, todayWeatherData, oneDayHourlyData, sevenDayData,
     isError, 
     isPending, 
     error }

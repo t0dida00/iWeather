@@ -1,5 +1,5 @@
 @use "../../../app/styles/variables" as *;
-
+@use "../../../app/styles/mixins" as *;
 .container {
   display: flex;
   flex-direction: column;
@@ -32,6 +32,17 @@
   gap: 10px;
   overflow-x: auto;
   padding: 0 12px 12px 12px;
+}
+.temperature {
+  color: $colorPrimary !important;
+  font-size: $fontBase !important;
+  font-weight: $fontWeight700 !important;
+
+  span {
+    color: $colorSecondary !important;
+    font-size: $fontSm !important;
+    font-weight: $fontWeight400 !important  ;
+  }
 }
 
 .dayCard {
@@ -85,3 +96,4 @@
     overflow-x: auto;
   }
 }
+
