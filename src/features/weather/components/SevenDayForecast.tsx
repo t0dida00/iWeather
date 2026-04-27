@@ -21,19 +21,27 @@ export function SevenDayForecast({ data }: { data: SevenDayWeatherData | null })
 
           {data.date.map((date, index) => {
             const weatherCode = data.weatherCode[index] || 0
-            const WeatherIcon =
-              WEATHER_CODE_MAP[weatherCode]?.icon;
+            const WeatherIcon = WEATHER_CODE_MAP[weatherCode]?.icon
             const weatherDescription = WEATHER_CODE_MAP[weatherCode]?.label || 'Unknown weather'
-            return (<div className={styles.dayCard}>
-              <span>{convertStringToDay(date)}</span>
-              <WeatherIcon size={34} />
+            const day = convertStringToDay(date)
+            const high = roundNumber(data.tempHigh[index])
+            const low = roundNumber(data.tempLow[index])
+
+            return (<article
+              aria-label={`${day}: ${weatherDescription}, high ${high} degrees, low ${low} degrees`}
+              className={styles.dayCard}
+              key={date}
+              tabIndex={0}
+            >
+              <span>{day}</span>
+              <WeatherIcon aria-hidden="true" size={34} />
               {/* <p><strong>{roundNumber(data.tempHigh[index])}°</strong>/{roundNumber(data.tempLow[index])}°</p> */}
               <p className={styles.temperature}>
                 {roundNumber(data.tempHigh[index])}°
-                <span>/{roundNumber(data.tempLow[index])}</span>
+                <span>/{low}</span>
               </p>
               <p>{weatherDescription}</p>
-            </div>)
+            </article>)
           })}
 
         </div>
