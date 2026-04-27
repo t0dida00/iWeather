@@ -1,6 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "search_history";
+const STORAGE_CHANGE_EVENT = "search_history_change";
 const MAX_ITEMS = 10;
 
 type SearchHistoryEntry = {
@@ -16,26 +17,57 @@ type SearchHistoryEntry = {
 
 type SearchHistoryUpdate = Partial<Omit<SearchHistoryEntry, "latitude" | "longitude">>;
 
+const readHistory = (): SearchHistoryEntry[] => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+}
+
+const writeHistory = (history: SearchHistoryEntry[]): void => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    window.dispatchEvent(new Event(STORAGE_CHANGE_EVENT));
+}
+
 export function useSearchHistory() {
-    const [history, setHistory] = useState<SearchHistoryEntry[]>(() => {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        return stored ? JSON.parse(stored) : [];
-    });
+    const [history, setHistory] = useState<SearchHistoryEntry[]>(readHistory);
+
+    useEffect(() => {
+        const syncHistory = () => setHistory(readHistory());
+        const syncStoredHistory = (event: StorageEvent) => {
+            if (event.key === STORAGE_KEY) {
+                syncHistory();
+            }
+        };
+
+        window.addEventListener(STORAGE_CHANGE_EVENT, syncHistory);
+        window.addEventListener("storage", syncStoredHistory);
+
+        return () => {
+            window.removeEventListener(STORAGE_CHANGE_EVENT, syncHistory);
+            window.removeEventListener("storage", syncStoredHistory);
+        };
+    }, []);
 
     const addToHistory = useCallback((entry: SearchHistoryEntry): void => {
-        setHistory(prev => {
-            const filtered = prev.filter(q => !(q.name === entry.name && q.country_code === entry.country_code));
-            const updated = [entry, ...filtered].slice(0, MAX_ITEMS);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        setHistory(() => {
+            const latestHistory = readHistory();
+            const existingEntry = latestHistory.find(q =>
+                q.latitude === entry.latitude && q.longitude === entry.longitude
+            );
+            const filtered = latestHistory.filter(q =>
+                !(q.latitude === entry.latitude && q.longitude === entry.longitude)
+            );
+            const updated = [{ ...existingEntry, ...entry }, ...filtered].slice(0, MAX_ITEMS);
+            writeHistory(updated);
             return updated;
         });
     }, []);
 
     const updateHistory = useCallback((latitude: number, longitude: number, updates: SearchHistoryUpdate): void => {
-        setHistory(prev => {
+        setHistory(() => {
+            const latestHistory = readHistory();
             let hasChanges = false;
 
-            const updated = prev.map(entry => {
+            const updated = latestHistory.map(entry => {
                 if (entry.latitude !== latitude || entry.longitude !== longitude) {
                     return entry;
                 }
@@ -53,10 +85,10 @@ export function useSearchHistory() {
             });
 
             if (!hasChanges) {
-                return prev;
+                return latestHistory;
             }
 
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+            writeHistory(updated);
             return updated;
         });
     }, []);
@@ -64,6 +96,7 @@ export function useSearchHistory() {
 
     const clearHistory = useCallback(() => {
         localStorage.removeItem(STORAGE_KEY);
+        window.dispatchEvent(new Event(STORAGE_CHANGE_EVENT));
         setHistory([]);
     }, []);
 
