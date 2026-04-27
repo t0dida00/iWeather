@@ -1,33 +1,17 @@
 @use "../../../app/styles/variables" as *;
 
 .toggle {
-  display: flex;
-  border-radius: 999px;
-  background: var(--toggle-background);
-}
-
-.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 34px;
   border: none;
-  background: transparent;
-  padding: 8px 14px;
   border-radius: 999px;
-  cursor: pointer;
-  font: inherit;
-  font-size: $fontSm;
-  color: var(--toggle-color);
-
-  svg {
-    display: block;
-  }
-}
-
-.active {
-  border: none;
-  padding: 8px 14px;
-  border-radius: 0 999px 999px 0;
-  cursor: pointer;
+  padding: 0 20px;
   background: var(--toggle-active-background);
   color: var(--toggle-active-color);
+  cursor: pointer;
   font: inherit;
   font-size: $fontSm;
   font-weight: $fontWeight600;
@@ -37,8 +21,8 @@
     display: block;
   }
 
-  &:nth-child(1),
-  &:first-child {
-    border-radius: 999px 0 0 999px;
+  &:focus-visible {
+    outline: 2px solid var(--toggle-active-background);
+    outline-offset: -2px;
   }
 }

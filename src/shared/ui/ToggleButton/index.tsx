@@ -1,4 +1,3 @@
-import Button from "../Button";
 import styles from "./Toggle.module.scss";
 import type { ReactNode } from "react";
 
@@ -19,18 +18,18 @@ export default function Toggle({
     value,
     onChange
 }: ToggleProps) {
+    const activeIndex = options.findIndex(option => option.value === value);
+    const activeOption = options[activeIndex] ?? options[0];
+    const nextOption = options[(activeIndex + 1) % options.length] ?? activeOption;
 
     return (
-        <div className={styles.toggle}>
-            {options.map(option => (
-                <Button
-                    key={option.value}
-                    onClick={() => onChange(option.value)}
-                    className={value === option.value ? styles.active : styles.button}
-                >
-                    {option.icon ?? option.label}
-                </Button>
-            ))}
-        </div>
+        <button
+            type="button"
+            onClick={() => onChange(nextOption.value)}
+            className={styles.toggle}
+            aria-label={`Switch to ${nextOption.label}`}
+        >
+            {activeOption.icon ?? activeOption.label}
+        </button>
     );
 }

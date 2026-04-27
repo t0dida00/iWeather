@@ -14,8 +14,8 @@ export default function ThemeToggle() {
             value={theme}
             onChange={(value) => toggleTheme(value as Theme)}
             options={[
-                { label: "light", value: "light", icon: <Sun size={15} /> },
-                { label: "dark", value: "dark", icon: <Moon size={15} /> }
+                { label: "light", value: "light", icon: <Sun size={15} strokeWidth={4} /> },
+                { label: "dark", value: "dark", icon: <Moon size={15} strokeWidth={4} /> }
             ]}
         />
     )
