@@ -3,13 +3,13 @@ import axios from 'axios'
 type Coordinates = {
   lat: number
   lon: number
+  tempUnit?: 'celsius' | 'fahrenheit'
 }
 const weatherUrl = import.meta.env.VITE_OPEN_METEO_FORECAST_URL
-export async function getWeatherData({ lat, lon }: Coordinates) {
+export async function getWeatherData({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
   if (!weatherUrl) {
     throw new Error('Missing VITE_OPEN_METEO_FORECAST_URL')
   }
-  const tempUnit = localStorage.getItem('temp') as 'celsius' | 'fahrenheit' | null
  const current = [
     'temperature_2m',
     'apparent_temperature',
@@ -48,7 +48,7 @@ export async function getWeatherData({ lat, lon }: Coordinates) {
       current: current.join(','),
       daily: daily.join(','),
       hourly: hourly.join(','),
-      temperature_unit: tempUnit || 'celsius',
+      temperature_unit: tempUnit,
       timezone: 'auto',
     },
   })
