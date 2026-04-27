@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import * as echarts from 'echarts'
+import { graphic, init, use } from 'echarts/core'
+import { LineChart } from 'echarts/charts'
+import { GridComponent, TooltipComponent } from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
 import Card from '../../../shared/ui/Card'
 import styles from './TwentyFourHourForecast.module.scss'
 import type { TwentyFourHourWeatherData } from '../types'
 import { roundNumber } from '../../../shared/utils/roundNumber'
 import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
+
+use([LineChart, GridComponent, TooltipComponent, CanvasRenderer])
 
 type ForecastTab = 'temperature' | 'rain' | 'wind'
 
@@ -59,7 +64,7 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
       return
     }
 
-    const chart = echarts.init(chartRef.current)
+    const chart = init(chartRef.current)
     const currentForecast = forecastData[activeTab]
 
     const setChartOptions = () => {
@@ -113,7 +118,7 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
               borderWidth: 1
             },
             areaStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              color: new graphic.LinearGradient(0, 0, 0, 1, [
                 {
                   offset: 0,
                   color: currentForecast.areaStart

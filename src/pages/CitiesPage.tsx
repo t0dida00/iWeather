@@ -8,7 +8,6 @@ const cities = [
   { countryName: 'USA', cityName: 'New York', condition: 'Overcast', tempHigh: '6°', tempLow: '3°' },
   { countryName: 'Finland', cityName: 'Oulu', condition: 'Cloudy', tempHigh: '5°', tempLow: '1°' },
   { countryName: 'France', cityName: 'Paris', condition: 'Sunny', tempHigh: '16°', tempLow: '9°' },
-  null,
   { countryName: 'Italy', cityName: 'Rome', condition: 'Clear Sky', tempHigh: '21°', tempLow: '14°' },
   { countryName: 'Canada', cityName: 'Toronto', condition: 'Overcast', tempHigh: '8°', tempLow: '2°' },
   { countryName: 'Brazil', cityName: 'Sao Paulo', condition: 'Partly Cloudy', tempHigh: '25°', tempLow: '19°' },
