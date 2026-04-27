@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getWeatherData } from '../api/weatherApi'
 import type { Coordinates, TodayWeatherData, TwentyFourHourWeatherData } from '../types'
-import { getCurrentDay, getDayIndex,getCurrentDayDateTime, getHourDateTimeForDay, getRecentDateTimeIndex, getRecentDayIndexes, normalizeDate } from '../../../shared/utils/common'
+import { getCurrentDay, getDayIndex, getHourDateTimeForDay, getRecentDateTimeIndex, getRecentDayIndexes, normalizeDate } from '../../../shared/utils/common'
 import { useTemp } from '../../preferences/hooks/useTemp'
 export function useWeatherData({ lat, lon }: Coordinates) {
   const [selectedDay, setSelectedDay] = useState(getCurrentDay())

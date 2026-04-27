@@ -6,7 +6,7 @@ import type { TodayWeatherData } from '../types';
 import styles from "./CurrentWeatherPanel.module.scss"
 import { MapPin } from 'lucide-react';
 
-export function CurrentWeatherPanel({ data }: { data: TodayWeatherData }) {
+export function CurrentWeatherPanel({ data, city, code }: { data: TodayWeatherData; city: string; code: string }) {
   const WeatherIcon = WEATHER_CODE_MAP[data.weatherCode]?.icon;
 
   return (
@@ -14,7 +14,7 @@ export function CurrentWeatherPanel({ data }: { data: TodayWeatherData }) {
       <div className={styles.container}>
         <div className={styles.location}>
           <MapPin size={16} />
-          <p>Oulu, FI</p>
+          <p>{city}, {code}</p>
         </div>
         <div className={styles.date}>
           <p>{convertStringToDay(data.datetime)}</p>

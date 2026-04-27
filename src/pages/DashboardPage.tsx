@@ -7,9 +7,13 @@ import Card from "../shared/ui/Card";
 import styles from "./DashboardPage.module.scss"
 import { roundNumber } from "../shared/utils/roundNumber";
 import { convertStringToDay } from "../shared/utils/common";
+import { useOverviewParams } from "../features/weather/hooks/useOverviewParams";
 
 export function DashboardPage() {
-    const { isError, isPending, todayWeatherData, oneDayHourlyData, sevenDayData, selectedDay, setSelectedDay } = useWeatherData({ lat: 65.0124, lon: 25.4682 })
+    const { lat, lon, city, code } = useOverviewParams();
+    const { isError, isPending, todayWeatherData, oneDayHourlyData, sevenDayData, selectedDay, setSelectedDay } = useWeatherData({ lat: lat, lon: lon })
+    console.log(isError, isPending)
+    console.log(lat, lon, city, code)
     const currentWeatherRef = useRef<HTMLDivElement>(null)
     const [showCompactSummary, setShowCompactSummary] = useState(false)
     const navigate = useNavigate()
@@ -46,6 +50,7 @@ export function DashboardPage() {
     if (!todayWeatherData) {
         return <p>No weather data available.</p>
     }
+
     return (
         <>
             <div className={styles.pageActions}>
@@ -58,37 +63,44 @@ export function DashboardPage() {
                 >
                     <ArrowLeft size={20} />
                 </button>
+
             </div>
-            <div className={styles.container}>
-                <section className={styles.sidebar}>
-                    <div ref={currentWeatherRef}>
-                        {<CurrentWeatherPanel data={todayWeatherData} />}
-                    </div>
-                    {showCompactSummary && (
-                        <Card className={styles.mobileSummaryCard} height="auto" width="100%" padding={12}>
-                            <div className={styles.sidebarSummary}>
-                                <div className={styles.summaryRow}>
-                                    <strong>{roundNumber(todayWeatherData?.temperature)}{todayWeatherData?.temperatureUnit}</strong>
-                                    <span>Oulu, FI</span>
+
+            {(!lat || !lon || !city || !code) ? (
+                <p>Missing location data.</p>
+            ) : (
+                <div className={styles.container}>
+                    <section className={styles.sidebar}>
+                        <div ref={currentWeatherRef}>
+                            {<CurrentWeatherPanel data={todayWeatherData} city={city} code={code} />}
+                        </div>
+                        {showCompactSummary && (
+                            <Card className={styles.mobileSummaryCard} height="auto" width="100%" padding={12}>
+                                <div className={styles.sidebarSummary}>
+                                    <div className={styles.summaryRow}>
+                                        <strong>{roundNumber(todayWeatherData?.temperature)}{todayWeatherData?.temperatureUnit}</strong>
+                                        <span>{city}, {code}</span>
+                                    </div>
+                                    <div className={styles.summaryRow}>
+                                        <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}{todayWeatherData?.temperatureUnit}</span>
+                                        <span>{convertStringToDay(todayWeatherData?.datetime || '')}</span>
+                                    </div>
                                 </div>
-                                <div className={styles.summaryRow}>
-                                    <span>Feels {roundNumber(todayWeatherData?.apparentTemperature)}{todayWeatherData?.temperatureUnit}</span>
-                                    <span>{convertStringToDay(todayWeatherData?.datetime || '')}</span>
-                                </div>
-                            </div>
-                        </Card>
-                    )}
-                    <div className={styles.sidebarCities}>
+                            </Card>
+                        )}
+                        <div className={styles.sidebarCities}>
+                            <OtherCities />
+                        </div>
+                    </section>
+                    <section className={styles.mainContent}>
+                        <TodaysHighlight data={todayWeatherData} />
+                        <TwentyFourHourForecast data={oneDayHourlyData} />
+                        <SevenDayForecast data={sevenDayData} selectedDay={selectedDay} onSelectDay={setSelectedDay} />
                         <OtherCities />
-                    </div>
-                </section>
-                <section className={styles.mainContent}>
-                    <TodaysHighlight data={todayWeatherData} />
-                    <TwentyFourHourForecast data={oneDayHourlyData} />
-                    <SevenDayForecast data={sevenDayData} selectedDay={selectedDay} onSelectDay={setSelectedDay} />
-                    <OtherCities />
-                </section>
-            </div>
+                    </section>
+                </div>
+            )}
+
         </>
 
     )
