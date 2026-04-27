@@ -48,49 +48,47 @@ export function useSearchHistory() {
     }, []);
 
     const addToHistory = useCallback((entry: SearchHistoryEntry): void => {
-        setHistory(() => {
-            const latestHistory = readHistory();
-            const existingEntry = latestHistory.find(q =>
-                q.latitude === entry.latitude && q.longitude === entry.longitude
-            );
-            const filtered = latestHistory.filter(q =>
-                !(q.latitude === entry.latitude && q.longitude === entry.longitude)
-            );
-            const updated = [{ ...existingEntry, ...entry }, ...filtered].slice(0, MAX_ITEMS);
-            writeHistory(updated);
-            return updated;
-        });
+        const latestHistory = readHistory();
+        const existingEntry = latestHistory.find(q =>
+            q.latitude === entry.latitude && q.longitude === entry.longitude
+        );
+        const filtered = latestHistory.filter(q =>
+            !(q.latitude === entry.latitude && q.longitude === entry.longitude)
+        );
+        const updated = [{ ...existingEntry, ...entry }, ...filtered].slice(0, MAX_ITEMS);
+
+        writeHistory(updated);
+        setHistory(updated);
     }, []);
 
     const updateHistory = useCallback((latitude: number, longitude: number, updates: SearchHistoryUpdate): void => {
-        setHistory(() => {
-            const latestHistory = readHistory();
-            let hasChanges = false;
+        const latestHistory = readHistory();
+        let hasChanges = false;
 
-            const updated = latestHistory.map(entry => {
-                if (entry.latitude !== latitude || entry.longitude !== longitude) {
-                    return entry;
-                }
-
-                const entryHasChanges = Object.entries(updates).some(([key, value]) =>
-                    entry[key as keyof SearchHistoryEntry] !== value
-                );
-
-                if (!entryHasChanges) {
-                    return entry;
-                }
-
-                hasChanges = true;
-                return { ...entry, ...updates };
-            });
-
-            if (!hasChanges) {
-                return latestHistory;
+        const updated = latestHistory.map(entry => {
+            if (entry.latitude !== latitude || entry.longitude !== longitude) {
+                return entry;
             }
 
-            writeHistory(updated);
-            return updated;
+            const entryHasChanges = Object.entries(updates).some(([key, value]) =>
+                entry[key as keyof SearchHistoryEntry] !== value
+            );
+
+            if (!entryHasChanges) {
+                return entry;
+            }
+
+            hasChanges = true;
+            return { ...entry, ...updates };
         });
+
+        if (!hasChanges) {
+            setHistory(latestHistory);
+            return;
+        }
+
+        writeHistory(updated);
+        setHistory(updated);
     }, []);
 
 
