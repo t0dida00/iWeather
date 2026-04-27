@@ -4,7 +4,7 @@ import { roundNumber } from '../../../shared/utils/roundNumber';
 import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes';
 import type { TodayWeatherData } from '../types';
 import styles from "./CurrentWeatherPanel.module.scss"
-import { CloudSun, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 export function CurrentWeatherPanel({ data }: { data: TodayWeatherData }) {
   const WeatherIcon = WEATHER_CODE_MAP[data.weatherCode]?.icon;

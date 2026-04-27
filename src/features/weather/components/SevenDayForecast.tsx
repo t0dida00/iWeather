@@ -1,4 +1,3 @@
-import { Cloud, CloudRain, CloudSun, Sun } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
 import styles from './SevenDayForecast.module.scss'
 import type { SevenDayWeatherData } from '../types'

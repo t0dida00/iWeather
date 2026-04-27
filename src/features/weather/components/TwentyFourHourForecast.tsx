@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import * as echarts from 'echarts'
-import { Cloud, CloudSun, Sun } from 'lucide-react'
 import Card from '../../../shared/ui/Card'
 import styles from './TwentyFourHourForecast.module.scss'
 import type { TwentyFourHourWeatherData } from '../types'
@@ -16,35 +15,7 @@ type TooltipParam = {
 
 const forecastTimes = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
 
-let forecastData = {
-  temperature: {
-    unit: '°C',
-    min: 12,
-    max: 23,
-    color: '#e0a326',
-    values: [20, 20, 20, 15, 18, 20, 21, 21, 20, 18, 16, 15],
-    areaStart: 'rgba(224, 163, 38, 0.34)',
-    areaEnd: 'rgba(224, 163, 38, 0.02)'
-  },
-  rain: {
-    unit: '%',
-    min: 0,
-    max: 14,
-    color: '#78aef7',
-    values: [12, 10, 7, 4, 2, 1, 0, 0, 0, 2, 4, 6],
-    areaStart: 'rgba(120, 174, 247, 0.28)',
-    areaEnd: 'rgba(120, 174, 247, 0.02)'
-  },
-  wind: {
-    unit: 'm/s',
-    min: 10,
-    max: 25,
-    color: '#5f8cff',
-    values: [18, 19, 23, 23, 21, 21, 19, 15, 14, 15, 16, 17],
-    areaStart: 'rgba(95, 140, 255, 0.22)',
-    areaEnd: 'rgba(95, 140, 255, 0.02)'
-  }
-}
+
 
 export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData | null }) {
   const chartRef = useRef<HTMLDivElement>(null)
