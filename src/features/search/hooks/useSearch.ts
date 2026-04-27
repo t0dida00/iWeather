@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { searchLocations, type LocationSearchResult } from '../api/searchApi'
-import { useWeatherData } from '../../weather/hooks/useWeatherData'
 import { useNavigate } from 'react-router-dom';
 
 const SEARCH_DEBOUNCE_MS = 500
