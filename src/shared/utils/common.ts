@@ -2,6 +2,14 @@ export function convertMeterToKilometer(meter: number): number {
   return Math.round(meter / 1000);
 }
 
+export function convertCelsiusToFahrenheit(celsius: number): number {
+    return (celsius * 9) / 5 + 32
+}
+
+export function ConvertFahrenheitToCelsius(fahrenheit: number): number {
+    return ((fahrenheit - 32) * 5) / 9
+}
+
 export function convertStringToDateTime(dateTimeStr: string): string {
   return new Date(dateTimeStr).toLocaleDateString('en-US', {
     month: 'short',
