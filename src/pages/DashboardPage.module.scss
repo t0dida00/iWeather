@@ -17,12 +17,11 @@
   background: var(--card-background);
   color: $colorPrimary;
   cursor: pointer;
+  transition: opacity 0.2s ease;
 
-  // &:hover {
-  //   border-color: $colorAccent;
-  //   background: var(--card-inner-background);
-  //   transform: translateX(-2px);
-  // }
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .container {

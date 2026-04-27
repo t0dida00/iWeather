@@ -10,9 +10,10 @@
   font: inherit;
   font-size: $fontSm;
   font-weight: $fontWeight600;
-  transition: 0.2s background-color;
+  transition: 0.2s background-color, 0.2s opacity;
 
   &:hover {
+    opacity: 0.6; 
     background: $colorBody;
   }
 }
