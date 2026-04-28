@@ -15,6 +15,11 @@ type WeatherMeta = {
   icon: LucideIcon
 }
 
+/**
+ * Maps Open-Meteo weather codes to display labels and Lucide icons.
+ * @example 0 -> { label: "Clear sky", icon: Sun }
+ * @example 61 -> { label: "Slight rain", icon: CloudRain }
+ */
 export const WEATHER_CODE_MAP: Record<number, WeatherMeta> = {
   0: {
     label: "Clear sky",
