@@ -50,9 +50,11 @@ VITE_OPEN_METEO_GEOCODING_URL=https://geocoding-api.open-meteo.com/v1/search
 ## Useful Commands
 
 ```bash
-npm run build        # Type-check and create production build
-npm test             # Run all tests
-npm run preview      # Preview production build locally
+npm run build           # Type-check and create production build
+npm run storybook       # Start Storybook for shared UI components
+npm run build-storybook # Build static Storybook assets
+npm test                # Run all tests
+npm run preview         # Preview production build locally
 ```
 
 ## Documentation
