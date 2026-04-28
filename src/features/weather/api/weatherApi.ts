@@ -5,51 +5,80 @@ type Coordinates = {
   lon: number
   tempUnit?: 'celsius' | 'fahrenheit'
 }
+
 const weatherUrl = import.meta.env.VITE_OPEN_METEO_FORECAST_URL
-export async function getWeatherData({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
+
+const current = [
+  'temperature_2m',
+  'apparent_temperature',
+  'relative_humidity_2m',
+  'weather_code',
+  'wind_speed_10m',
+  'wind_direction_10m',
+]
+
+const daily = [
+  'sunrise',
+  'sunset',
+  'temperature_2m_min',
+  'temperature_2m_max',
+  'weather_code',
+]
+
+const hourly = [
+  'visibility',
+  'temperature_2m',
+  'relative_humidity_2m',
+  'apparent_temperature',
+  'wind_speed_10m',
+  'wind_direction_10m',
+  'weather_code',
+  'uv_index',
+  'precipitation_probability',
+]
+
+function getWeatherUrl() {
   if (!weatherUrl) {
     throw new Error('Missing VITE_OPEN_METEO_FORECAST_URL')
   }
- const current = [
-    'temperature_2m',
-    'apparent_temperature',
-    'relative_humidity_2m',
-    'weather_code',
-    'wind_speed_10m',
-    'wind_direction_10m',
-  ]
 
-  const daily = [
-    'sunrise',
-    'sunset',
-    'temperature_2m_min',
-    'temperature_2m_max',
-    'weather_code',
-   
-  ]
+  return weatherUrl
+}
 
-  const hourly = [
-    'visibility',
-    'temperature_2m',
-    'relative_humidity_2m',
-    'apparent_temperature',
-    'wind_speed_10m',
-     'wind_direction_10m',
-    'weather_code',
-    'uv_index',
-     'precipitation_probability',
-  ]
+const getBaseParams = ({ lat, lon, tempUnit = 'celsius' }: Coordinates) => ({
+  latitude: lat,
+  longitude: lon,
+  temperature_unit: tempUnit,
+  timezone: 'auto',
+})
 
-
-  const { data } = await axios.get(weatherUrl, {
+export async function getCurrentWeather({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
+  const { data } = await axios.get(getWeatherUrl(), {
     params: {
-      latitude: lat,
-      longitude: lon,
+      ...getBaseParams({ lat, lon, tempUnit }),
       current: current.join(','),
+    },
+  })
+
+  return data
+}
+
+export async function getDailyWeather({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
+  const { data } = await axios.get(getWeatherUrl(), {
+    params: {
+      ...getBaseParams({ lat, lon, tempUnit }),
       daily: daily.join(','),
+    },
+  })
+
+  return data
+}
+
+export async function getHourlyWeather({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
+  const { data } = await axios.get(getWeatherUrl(), {
+    params: {
+      ...getBaseParams({ lat, lon, tempUnit }),
       hourly: hourly.join(','),
-      temperature_unit: tempUnit,
-      timezone: 'auto',
     },
   })
 
@@ -57,18 +86,12 @@ export async function getWeatherData({ lat, lon, tempUnit = 'celsius' }: Coordin
 }
 
 export async function getWeatherSummary({ lat, lon, tempUnit = 'celsius' }: Coordinates) {
-  if (!weatherUrl) {
-    throw new Error('Missing VITE_OPEN_METEO_FORECAST_URL')
-  }
-  const daily =['temperature_2m_max', 'temperature_2m_min', 'weather_code']
-  const { data } = await axios.get(weatherUrl, {
+  const dailySummary = ['temperature_2m_max', 'temperature_2m_min', 'weather_code']
+  const { data } = await axios.get(getWeatherUrl(), {
     params: {
-      latitude: lat,
-      longitude: lon,
-      daily: daily.join(','),
+      ...getBaseParams({ lat, lon, tempUnit }),
+      daily: dailySummary.join(','),
       forecast_days: 1,
-      temperature_unit: tempUnit,
-      timezone: 'auto',
     },
   })
 
