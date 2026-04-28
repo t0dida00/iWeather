@@ -72,6 +72,7 @@ describe('TodaysHighlight', () => {
   })
 
   it('renders exactly 6 metric cards', () => {
+    render(<TodaysHighlight data={data} />)
     // Each inner metric card has a unique label — count the label spans
     const labels = ['Wind Status', 'Humidity', 'Sunrise', 'UV Index', 'Visibility', 'Sunset']
     labels.forEach((label) => expect(screen.getByText(label)).toBeInTheDocument())
