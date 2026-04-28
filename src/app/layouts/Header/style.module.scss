@@ -50,11 +50,17 @@
     font-weight: $fontWeight400;
   }
 
-  p:last-child {
+  p:nth-child(2) {
     font-size: $fontBase;
     color: $colorPrimary;
     font-weight: $fontWeight700;
   }
+}
+
+.updatedTime {
+  font-size: $fontXs;
+  color: $colorMuted;
+  font-weight: $fontWeight400;
 }
 
 .toggleButtons {

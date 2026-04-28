@@ -20,8 +20,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryFn: () => getCurrentWeather({ lat, lon, tempUnit: temp }),
     staleTime: currentStaleTime,
     refetchInterval: currentStaleTime, // Refetch every 15 minutes
-    refetchIntervalInBackground: true,
-    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   })
 
   const hourlyQuery = useQuery({
@@ -29,8 +29,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryFn: () => getHourlyWeather({ lat, lon, tempUnit: temp }),
     staleTime: hourlyStaleTime,
     refetchInterval: hourlyStaleTime, // Refetch every 30 minutes
-    refetchIntervalInBackground: true,
-    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus:   true,
   })
 
   const dailyQuery = useQuery({
@@ -38,8 +38,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryFn: () => getDailyWeather({ lat, lon, tempUnit: temp }),
     staleTime: dailyStaleTime,
     refetchInterval: dailyStaleTime, // Refetch every 6 hours
-    refetchIntervalInBackground: true,
-    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   })
 
   const data = currentQuery.data || hourlyQuery.data || dailyQuery.data ? {
