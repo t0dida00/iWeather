@@ -26,7 +26,29 @@ src/
 
 The architecture uses feature modules for domain ownership and `shared/` for reusable primitives.
 
+## Routes
 
+The application exposes two primary user-facing routes:
+
+| Route | Purpose |
+| --- | --- |
+| [`/cities`](https://iweather-khaki.vercel.app/cities) | Cities overview and saved search history |
+| [`/overview`](https://iweather-khaki.vercel.app/overview/?city=Oulu&code=FI&lat=65.01236&lon=25.46816) | Weather dashboard for a selected city |
+
+The overview route requires these query parameters:
+
+| Parameter | Required | Example | Purpose |
+| --- | --- | --- | --- |
+| `city` | Yes | `Oulu` | Display name for the selected city |
+| `code` | Yes | `FI` | Country code shown in weather panels |
+| `lat` | Yes | `65.01236` | Latitude used for Open-Meteo forecast requests |
+| `lon` | Yes | `25.46816` | Longitude used for Open-Meteo forecast requests |
+
+Example overview URL:
+
+```txt
+https://iweather-khaki.vercel.app/overview/?city=Oulu&code=FI&lat=65.01236&lon=25.46816
+```
 
 ## API Integration Architecture
 
@@ -107,4 +129,3 @@ Current behavior favors clear fallback UI over complex retry UX. Missing weather
 - `pages`: Route compositions that connect feature modules.
 - `shared/ui`: Reusable UI primitives with minimal domain knowledge.
 - `shared/utils`: Pure formatting, conversion, and mapping utilities.
-
