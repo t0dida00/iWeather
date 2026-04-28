@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import Card from '../../../shared/ui/Card'
 import CityCard from '../../../shared/ui/CityCard'
-import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
 import { useSearchHistory } from '../../search/hooks/useSearchHistory'
 import styles from './OtherCities.module.scss'
 
@@ -9,9 +8,6 @@ const MAX_OTHER_CITIES = 5
 
 const formatTemperature = (value: number | undefined) =>
   typeof value === 'number' ? `${Math.round(value)}°` : '--'
-
-const getConditionLabel = (code: number | undefined) =>
-  code != null ? WEATHER_CODE_MAP[code]?.label ?? 'Unknown' : 'Unknown'
 
 type OtherCitiesProps = {
   currentLatitude?: number
@@ -34,7 +30,7 @@ export function OtherCities({ currentLatitude, currentLongitude }: OtherCitiesPr
           longitude: entry.longitude,
           countryName: entry.country,
           cityName: entry.name,
-          condition: getConditionLabel(entry.weatherCode),
+          weatherCode: entry.weatherCode,
           tempHigh: formatTemperature(entry.tempHigh),
           tempLow: formatTemperature(entry.tempLow),
           key: `${entry.name}-${entry.country_code}-${index}`,
@@ -53,9 +49,9 @@ export function OtherCities({ currentLatitude, currentLongitude }: OtherCitiesPr
         <div className={styles.cityList}>
           {cities.map((city) => (
             <CityCard
-              condition={city.condition}
               countryName={city.countryName}
               cityName={city.cityName}
+              weatherCode={city.weatherCode}
               key={city.key}
               tempHigh={city.tempHigh}
               tempLow={city.tempLow}

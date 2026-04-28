@@ -1,12 +1,12 @@
-import { Cloud, CloudSun, Sun } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Card from '../Card'
 import styles from './CityCard.module.scss'
+import { WEATHER_CODE_MAP } from '../../utils/weatherCodes'
 
 type CityCardProps = {
   countryName: string
   cityName: string
-  condition: string
+  weatherCode?: number
   tempHigh: string
   tempLow: string
   latitude: number
@@ -14,31 +14,18 @@ type CityCardProps = {
   code: string
 }
 
-const getWeatherIcon = (condition: string) => {
-  const normalizedCondition = condition.toLowerCase()
-
-  if (normalizedCondition.includes('clear') || normalizedCondition.includes('sun')) {
-    return Sun
-  }
-
-  if (normalizedCondition.includes('partly')) {
-    return CloudSun
-  }
-
-  return Cloud
-}
-
 export default function CityCard({
   countryName,
   cityName,
-  condition,
+  weatherCode,
   tempHigh,
   tempLow,
   latitude,
   longitude,
   code
 }: CityCardProps) {
-  const Icon = getWeatherIcon(condition)
+  const WeatherIcon = weatherCode != null ? WEATHER_CODE_MAP[weatherCode]?.icon : undefined
+  const condition = weatherCode != null ? WEATHER_CODE_MAP[weatherCode]?.label ?? 'Unknown' : 'Unknown'
 
   return (
     <Link className={styles.cityLink} to={`/overview/?city=${cityName}&code=${code}&lat=${latitude}&lon=${longitude}`}>
@@ -57,7 +44,7 @@ export default function CityCard({
           <p className={styles.condition}>{condition}</p>
         </div>
 
-        <Icon className={styles.cityIcon} size={34} />
+        {WeatherIcon && <WeatherIcon className={styles.cityIcon} size={34} />}
 
         <p className={styles.temperature}>
           {tempHigh}

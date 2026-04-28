@@ -5,7 +5,9 @@ import {
   ConvertFahrenheitToCelsius,
   convertStringToDateTime,
   convertStringToTime,
+  formatLatestUpdateTime,
   convertStringToDay,
+  getLatestTimestamp,
   normalizeDate,
   getCurrentHourDateTime,
   getCurrentDayDateTime,
@@ -78,6 +80,26 @@ describe('convertStringToTime', () => {
 
   it('pads single-digit hours and minutes', () => {
     expect(convertStringToTime('2024-04-28T09:05')).toBe('09:05')
+  })
+})
+
+describe('formatLatestUpdateTime', () => {
+  it('formats a timestamp as HH:MM', () => {
+    expect(formatLatestUpdateTime(new Date('2024-04-28T14:30:00').getTime())).toBe('14:30')
+  })
+
+  it('returns fallback when timestamp is missing', () => {
+    expect(formatLatestUpdateTime()).toBe('--')
+  })
+})
+
+describe('getLatestTimestamp', () => {
+  it('returns the latest positive timestamp', () => {
+    expect(getLatestTimestamp([0, 1000, 3000, 2000])).toBe(3000)
+  })
+
+  it('returns undefined when there are no positive timestamps', () => {
+    expect(getLatestTimestamp([0])).toBeUndefined()
   })
 })
 

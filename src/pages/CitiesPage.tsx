@@ -3,13 +3,35 @@ import Card from '../shared/ui/Card'
 import CityCard from '../shared/ui/CityCard'
 import styles from './CitiesPage.module.scss'
 import { useSearchHistory } from '../features/search/hooks/useSearchHistory'
-import { WEATHER_CODE_MAP } from '../shared/utils/weatherCodes'
+import { useWeatherData } from '../features/weather/hooks/useWeatherData'
+
+type CityWeatherCardProps = {
+  cityName: string
+  code: string
+  countryName: string
+  latitude: number
+  longitude: number
+}
 
 const formatTemperature = (value: number | undefined) =>
   typeof value === 'number' ? `${Math.round(value)}°` : '--'
 
-const getConditionLabel = (code: number | undefined) =>
-  code != null ? WEATHER_CODE_MAP[code]?.label ?? 'Unknown' : 'Unknown'
+function CityWeatherCard({ cityName, code, countryName, latitude, longitude }: CityWeatherCardProps) {
+  const { todayWeatherData } = useWeatherData({ lat: latitude, lon: longitude })
+
+  return (
+    <CityCard
+      countryName={countryName}
+      cityName={cityName}
+      weatherCode={todayWeatherData?.weatherCode}
+      tempHigh={formatTemperature(todayWeatherData?.tempHigh)}
+      tempLow={formatTemperature(todayWeatherData?.tempLow)}
+      latitude={latitude}
+      longitude={longitude}
+      code={code}
+    />
+  )
+}
 
 export function CitiesPage() {
   const { history } = useSearchHistory()
@@ -21,9 +43,6 @@ export function CitiesPage() {
         longitude: entry.longitude,
         countryName: entry.country,
         cityName: entry.name,
-        condition: getConditionLabel(entry.weatherCode),
-        tempHigh: formatTemperature(entry.tempHigh),
-        tempLow: formatTemperature(entry.tempLow),
         key: `${entry.name}-${entry.country_code}-${index}`,
         code: entry.country_code,
       })),
@@ -52,13 +71,10 @@ export function CitiesPage() {
           </Card>
         ) : (
           cities.map((city) => (
-            <CityCard
-              condition={city.condition}
+            <CityWeatherCard
               countryName={city.countryName}
               cityName={city.cityName}
               key={city.key}
-              tempHigh={city.tempHigh}
-              tempLow={city.tempLow}
               latitude={city.latitude}
               longitude={city.longitude}
               code={city.code}

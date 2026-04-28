@@ -4,9 +4,12 @@ import { MemoryRouter } from 'react-router-dom'
 import { CitiesPage } from './CitiesPage'
 
 vi.mock('../features/search/hooks/useSearchHistory')
+vi.mock('../features/weather/hooks/useWeatherData')
 import { useSearchHistory } from '../features/search/hooks/useSearchHistory'
+import { useWeatherData } from '../features/weather/hooks/useWeatherData'
 
 const mockUseSearchHistory = vi.mocked(useSearchHistory)
+const mockUseWeatherData = vi.mocked(useWeatherData)
 
 const mockHistory = [
   {
@@ -40,6 +43,17 @@ const renderPage = () =>
 
 beforeEach(() => {
   vi.clearAllMocks()
+  mockUseWeatherData.mockReturnValue({
+    data: undefined,
+    todayWeatherData: null,
+    oneDayHourlyData: null,
+    sevenDayData: null,
+    selectedDay: '',
+    setSelectedDay: vi.fn(),
+    isError: false,
+    isPending: false,
+    error: null,
+  })
 })
 
 describe('CitiesPage — empty state', () => {
@@ -87,6 +101,36 @@ describe('CitiesPage — with data', () => {
       updateHistory: vi.fn(),
       clearHistory: vi.fn(),
     })
+    mockUseWeatherData.mockImplementation(({ lat }) => ({
+      data: undefined,
+      todayWeatherData: {
+        temperature: 30,
+        apparentTemperature: 31,
+        humidity: 80,
+        weatherCode: lat === 21.0 ? 3 : 0,
+        windSpeed: 10,
+        windDirection: 90,
+        datetime: '2024-04-28T10:00',
+        tempHigh: lat === 21.0 ? 32 : 35,
+        tempLow: lat === 21.0 ? 25 : 27,
+        sunrise: '2024-04-28T05:30',
+        sunset: '2024-04-28T18:30',
+        temperatureUnit: '°C',
+        windSpeedUnit: 'km/h',
+        visibility: 10000,
+        uvIndex: 5,
+        windDirectionUnit: '°',
+        visibilityUnit: 'm',
+        uvIndexUnit: '',
+      },
+      oneDayHourlyData: null,
+      sevenDayData: null,
+      selectedDay: '',
+      setSelectedDay: vi.fn(),
+      isError: false,
+      isPending: false,
+      error: null,
+    }))
   })
 
   it('does not show the empty state message', () => {
@@ -125,25 +169,35 @@ describe('CitiesPage — with data', () => {
   })
 
   it('shows -- for missing temperature values', () => {
-    mockUseSearchHistory.mockReturnValue({
-      history: [{ ...mockHistory[0], tempHigh: undefined, tempLow: undefined }],
-      addToHistory: vi.fn(),
-      updateHistory: vi.fn(),
-      clearHistory: vi.fn(),
+    mockUseWeatherData.mockReturnValue({
+      data: undefined,
+      todayWeatherData: null,
+      oneDayHourlyData: null,
+      sevenDayData: null,
+      selectedDay: '',
+      setSelectedDay: vi.fn(),
+      isError: false,
+      isPending: false,
+      error: null,
     })
     renderPage()
-    expect(screen.getAllByText('/--')).toHaveLength(1)
-    expect(screen.getByText('--')).toBeInTheDocument()
+    expect(screen.getAllByText('/--')).toHaveLength(2)
+    expect(screen.getAllByText('--')).toHaveLength(2)
   })
 
   it('shows Unknown for missing weather code', () => {
-    mockUseSearchHistory.mockReturnValue({
-      history: [{ ...mockHistory[0], weatherCode: undefined }],
-      addToHistory: vi.fn(),
-      updateHistory: vi.fn(),
-      clearHistory: vi.fn(),
+    mockUseWeatherData.mockReturnValue({
+      data: undefined,
+      todayWeatherData: null,
+      oneDayHourlyData: null,
+      sevenDayData: null,
+      selectedDay: '',
+      setSelectedDay: vi.fn(),
+      isError: false,
+      isPending: false,
+      error: null,
     })
     renderPage()
-    expect(screen.getByText('Unknown')).toBeInTheDocument()
+    expect(screen.getAllByText('Unknown')).toHaveLength(2)
   })
 })

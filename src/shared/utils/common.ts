@@ -25,6 +25,24 @@ export function convertStringToTime(dateTimeStr: string): string {
     return `${hours}:${minutes}`;
 }
 
+export function formatLatestUpdateTime(timestamp?: number): string {
+    if (!timestamp) {
+        return '--'
+    }
+
+    return convertStringToTime(new Date(timestamp).toISOString())
+}
+
+export function getLatestTimestamp(timestamps: number[]): number | undefined {
+    const validTimestamps = timestamps.filter((timestamp) => timestamp > 0)
+
+    if (!validTimestamps.length) {
+        return undefined
+    }
+
+    return Math.max(...validTimestamps)
+}
+
 export function convertStringToDay(dateTimeStr: string): string {
     const date = new Date(dateTimeStr);
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

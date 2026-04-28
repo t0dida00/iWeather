@@ -6,7 +6,7 @@ import CityCard from './index'
 const baseProps = {
   countryName: 'Vietnam',
   cityName: 'Hanoi',
-  condition: 'Overcast',
+  weatherCode: 3,
   tempHigh: '32°',
   tempLow: '25°',
   latitude: 21.0,
@@ -57,20 +57,20 @@ describe('CityCard', () => {
   })
 
   it('shows Sun icon for clear sky condition', () => {
-    renderCard({ ...baseProps, condition: 'Clear sky' })
+    renderCard({ ...baseProps, weatherCode: 0 })
     // lucide renders an svg — confirm the card renders without crashing and icon present
     const link = screen.getByRole('link')
     expect(link.querySelector('svg')).toBeInTheDocument()
   })
 
   it('shows CloudSun icon for partly cloudy condition', () => {
-    renderCard({ ...baseProps, condition: 'Partly cloudy' })
+    renderCard({ ...baseProps, weatherCode: 2 })
     const link = screen.getByRole('link')
     expect(link.querySelector('svg')).toBeInTheDocument()
   })
 
   it('shows Cloud icon for other conditions', () => {
-    renderCard({ ...baseProps, condition: 'Overcast' })
+    renderCard({ ...baseProps, weatherCode: 3 })
     const link = screen.getByRole('link')
     expect(link.querySelector('svg')).toBeInTheDocument()
   })
