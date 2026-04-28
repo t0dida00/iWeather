@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { graphic, init, use } from 'echarts/core'
+import { graphic, init, use as registerECharts } from 'echarts/core'
 import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -10,7 +10,8 @@ import { roundNumber } from '../../../shared/utils/roundNumber'
 import { WEATHER_CODE_MAP } from '../../../shared/utils/weatherCodes'
 import { convertStringToTime } from '../../../shared/utils/common'
 
-use([LineChart, GridComponent, TooltipComponent, CanvasRenderer])
+// Register ECharts components at the module level (not a React hook)
+registerECharts([LineChart, GridComponent, TooltipComponent, CanvasRenderer])
 
 type ForecastTab = 'temperature' | 'rain' | 'wind'
 
@@ -22,20 +23,7 @@ type TooltipParam = {
 export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData | null }) {
   const chartRef = useRef<HTMLDivElement>(null)
   const [activeTab, setActiveTab] = useState<ForecastTab>('temperature')
-  const [isUpdating, setIsUpdating] = useState(false)
-  const forecastKey = data.data?.time.join('|') || ''
   const forecastTimes = useMemo(() => data.data?.time.map(convertStringToTime) || [], [data.data?.time])
-
-  useEffect(() => {
-    if (!forecastKey) {
-      return
-    }
-
-    setIsUpdating(true)
-    const timeoutId = window.setTimeout(() => setIsUpdating(false), 180)
-
-    return () => window.clearTimeout(timeoutId)
-  }, [forecastKey])
 
   const forecastData = useMemo(() => {
     if (!data.data) {
@@ -220,11 +208,6 @@ export function TwentyFourHourForecast(data: { data: TwentyFourHourWeatherData |
           </button>
         </div>
         <div className={styles.chartWrapper}>
-          {isUpdating && (
-            <div className={styles.loadingOverlay} aria-label="Updating 24-hour forecast" aria-live="polite">
-              <span className={styles.spinner} />
-            </div>
-          )}
           <div className={styles.chart} ref={chartRef} />
           <div className={styles.forecastSymbols}>
             {forecastTimes.map((time, index) => {
