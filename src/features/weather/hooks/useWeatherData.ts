@@ -8,7 +8,7 @@ import { useSearchHistory } from '../../search/hooks/useSearchHistory'
 
 const currentStaleTime = 1000 * 60 * 15
 const hourlyStaleTime = 1000 * 60 * 30
-const dailyStaleTime = 1000 * 60 * 60 * 3
+const dailyStaleTime = 1000 * 60 * 60 * 6
 
 export function useWeatherData({ lat, lon }: Coordinates) {
   const [selectedDay, setSelectedDay] = useState(getCurrentDay())
@@ -19,6 +19,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryKey: ['weatherData', 'current', lat, lon, temp],
     queryFn: () => getCurrentWeather({ lat, lon, tempUnit: temp }),
     staleTime: currentStaleTime,
+    refetchInterval: currentStaleTime, // Refetch every 15 minutes
+    refetchIntervalInBackground: true,
     refetchOnWindowFocus: false,
   })
 
@@ -26,6 +28,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryKey: ['weatherData', 'hourly', lat, lon, temp],
     queryFn: () => getHourlyWeather({ lat, lon, tempUnit: temp }),
     staleTime: hourlyStaleTime,
+    refetchInterval: hourlyStaleTime, // Refetch every 30 minutes
+    refetchIntervalInBackground: true,
     refetchOnWindowFocus: false,
   })
 
@@ -33,6 +37,8 @@ export function useWeatherData({ lat, lon }: Coordinates) {
     queryKey: ['weatherData', 'daily', lat, lon, temp],
     queryFn: () => getDailyWeather({ lat, lon, tempUnit: temp }),
     staleTime: dailyStaleTime,
+    refetchInterval: dailyStaleTime, // Refetch every 6 hours
+    refetchIntervalInBackground: true,
     refetchOnWindowFocus: false,
   })
 
