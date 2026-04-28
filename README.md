@@ -21,6 +21,8 @@ The project demonstrates a production-minded frontend implementation with featur
 - **React Router** for routing
 - **ECharts** for forecast visualization
 - **SCSS modules** for component styling
+- **Storybook** for shared UI component documentation and visual review
+- **JSDoc + TypeDoc** for utility documentation
 - **Vitest** and **Testing Library** for tests
 - **Open-Meteo** Forecast and Geocoding APIs
 
