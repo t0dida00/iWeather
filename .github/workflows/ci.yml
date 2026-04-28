@@ -2,9 +2,9 @@ name: iWeather Simple CI
 
 on:
   push:
-    branches: [main,[ep-*]]
+    branches: [main,ep-*]
   pull_request:
-    branches: [main,[ep-*]]
+    branches: [main,ep-*]
 
 jobs:
   test:
