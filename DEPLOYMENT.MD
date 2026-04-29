@@ -81,13 +81,6 @@ Current test coverage includes:
 - City cards and route-level pages
 - Weather forecast components
 
-## Run Lint
-
-```bash
-npm run lint
-```
-
-Note: if the repository still contains the known Fast Refresh warning in `src/app/router/routers.tsx`, resolve that before making lint a required deployment gate.
 
 ## Build Locally
 
@@ -104,6 +97,31 @@ Preview the production build locally:
 ```bash
 npm run preview
 ```
+
+## Build and Run with Docker
+
+The repository includes a production Docker image that builds the Vite app with Node.js and serves the static assets with Nginx.
+
+Build and start the container:
+
+```bash
+docker compose up --build
+```
+
+Open:
+
+```txt
+http://localhost:8080/cities
+```
+
+Build the image without Docker Compose:
+
+```bash
+docker build -t iweather .
+docker run --rm -p 8080:80 iweather
+```
+
+Vite environment variables are resolved at build time. Docker Compose reads the values from your shell or `.env`, and falls back to the Open-Meteo defaults from `.env.example`.
 
 ## Build Docs
 

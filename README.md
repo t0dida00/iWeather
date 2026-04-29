@@ -57,6 +57,18 @@ npm test                # Run all tests
 npm run preview         # Preview production build locally
 ```
 
+## Docker
+
+Build and run the production container:
+
+```bash
+docker compose up --build
+```
+
+Open [http://localhost:8080/cities](http://localhost:8080/cities).
+
+The Docker build uses the same Vite environment variables listed above. If you need to override them, set them in your shell or `.env` before running Docker Compose.
+
 ## Documentation
 
 - [Architecture](./ARCHITECTURE.md)
